@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en" ng-app="<%= app.modules.main %>" ng-strict-di>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%= app.title %></title>
+    <meta name="title" content="<%= app.title %>">
+    <meta name="description" content="<%= app.description %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="theme-color" content="#62A8EA">
+    <!-- Fallback to homescreen for Chrome <39 on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="<%= app.title %>">
+    <!-- Favicons -->
+    <link async defer rel="apple-touch-icon" href="assets/favicons/apple-touch-icon.png">
+    <link async defer rel="shortcut icon" href="assets/favicons/favicon.ico">
+    <!--STYLES-->
+    <!--STYLES END-->
+    <!--[if lt IE 9]>
+    <script async defer src="assets/vendor/html5shiv/html5shiv.min.js"></script>
+    <![endif]-->
+    <!--[if lt IE 10]>
+    <script async defer src="assets/vendor/media-match/media.match.min.js"></script>
+    <script async defer src="assets/vendor/respond/respond.min.js"></script>
+    <![endif]-->
+    <!--<script async defer src='https://www.google.com/recaptcha/api.js'></script>-->
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Header -->
+    <site-navbar></site-navbar>
+    <!-- End Header -->
+    <!-- Site Menubar -->
+    <site-menubar></site-menubar>
+    <!-- End Site Menubar -->
+    <!-- Page -->
+    <div class="page" ui-view></div>
+    <!-- End Page -->
+    <!-- Footer -->
+    <site-footer></site-footer>
+    <!-- End footer -->
+    <script type="text/javascript">
+        window.APP = <%- JSON.stringify(app) %>;
+    </script>
+    <!--SCRIPTS-->
+    <!--SCRIPTS END-->
+    <% if (isDev) { %><script src="//localhost:35729/livereload.js"></script><% } %>
+</body>
+
+</html>

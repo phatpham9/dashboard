@@ -1,0 +1,42 @@
+﻿<div class="site-menubar" ng-if="USER.isLoggedin() && !hiddenSidebar">
+    <div class="site-menubar-body">
+        <ul class="site-menu">
+            <li ng-repeat="item in menubar" class="site-menu-{{item.type === 'item' ? 'item' : 'category'}}" ng-class="{'open': activeItem(item.activeStates)}" ng-if="AUTH.isAllowed(item.auth)">
+                <a ui-sref="{{item.state}}" ng-if="item.type === 'item' && !item.sub" ng-click="toggleMenubar()">
+                    <i class="site-menu-icon" ng-class="item.iconClass" aria-hidden="true"></i>
+                    <span class="site-menu-title" ng-bind="item.title | translate"></span>
+                    <div class="site-menu-label" ng-if="item.externalLink">
+                        <i class="fa fa-external-link"></i>
+                    </div>
+                </a>
+                <a ng-click="toggleSubmenu($event)" ng-if="item.type === 'item' && item.sub">
+                    <i class="site-menu-icon" ng-class="item.iconClass" aria-hidden="true"></i>
+                    <span class="site-menu-title" ng-bind="item.title | translate"></span>
+                    <span class="site-menu-arrow"></span>
+                </a>
+                <ul class="site-menu-sub" ng-if="item.type === 'item' && item.sub">
+                    <li class="site-menu-item" ng-repeat="subitem in item.sub" ng-class="{'open': activeItem(subitem.activeStates)}" ng-if="AUTH.isAllowed(subitem.auth)">
+                        <a ui-sref="{{subitem.state}}" ng-click="toggleMenubar()">
+                            <i class="site-menu-icon" aria-hidden="true"></i>
+                            <span class="site-menu-title" ng-bind="subitem.title | translate"></span>
+                        </a>
+                        <div class="site-menu-label" ng-if="subitem.externalLink">
+                            <i class="fa fa-external-link"></i>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="site-menubar-footer">
+        <a ui-sref="profile" tooltip-placement="top" tooltip="{{'PROFILE' | translate}}">
+            <span class="fa fa-user" aria-hidden="true"></span>
+        </a>
+        <a ui-sref="helps" tooltip-placement="top" tooltip="{{'BUTTON_HELPS' | translate}}">
+            <span class="fa fa-question" aria-hidden="true"></span>
+        </a>
+        <a ui-sref="logout" class="fold-show" tooltip-placement="top" tooltip="{{'BUTTON_LOGOUT' | translate}}">
+            <span class="fa fa-power-off" aria-hidden="true"></span>
+        </a>
+    </div>
+</div>

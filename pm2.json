@@ -1,0 +1,29 @@
+{
+    "apps": [{
+        "name": "dashboard",
+        "script": "./server/app.js",
+        "watch": true,
+        "env": {
+            "NODE_ENV": "development",
+
+            "HOST": "localhost",
+            "PORT": "9000",
+
+            "DB_HOST": "localhost",
+            "DB_PORT": "27017",
+            "DB_NAME": "dashboard-dev"
+        },
+        "env_production": {
+            "NODE_ENV": "production",
+
+            "HOST": "localhost",
+            "PORT": "9000",
+
+            "DB_HOST": "localhost",
+            "DB_PORT": "27017",
+            "DB_NAME": "dashboard",
+
+            "MAIL_SERVICE": "Mailgun"
+        }
+    }]
+}

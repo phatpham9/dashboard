@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%= app.title %></title>
+    <meta name="title" content="<%= app.title %>">
+    <meta name="description" content="<%= app.description %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="theme-color" content="#62A8EA">
+    <!-- Fallback to homescreen for Chrome <39 on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="<%= app.title %>">
+    <!-- Favicons -->
+    <link async defer rel="apple-touch-icon" href="assets/favicons/apple-touch-icon.png">
+    <link async defer rel="shortcut icon" href="assets/favicons/favicon.ico">
+    <!--STYLES-->
+    <!--STYLES END-->
+    <!--[if lt IE 9]>
+    <script async defer src="assets/vendor/html5shiv/html5shiv.min.js"></script>
+    <![endif]-->
+    <!--[if lt IE 10]>
+    <script async defer src="assets/vendor/media-match/media.match.min.js"></script>
+    <script async defer src="assets/vendor/respond/respond.min.js"></script>
+    <![endif]-->
+    <!--<script async defer src='https://www.google.com/recaptcha/api.js'></script>-->
+</head>
+
+<body class="page-error page-error-404 layout-full">
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Page -->
+    <div class="page vertical-align text-center">
+        <div class="page-content vertical-align-middle">
+            <header>
+                <h1>404</h1>
+                <p>Page Not Found !</p>
+            </header>
+            <p class="error-advise">YOU SEEM TO BE TRYING TO FIND WAY HOME</p>
+            <a class="btn btn-primary btn-round" href="javascript:goHome()">GO TO HOME PAGE</a>
+            <footer class="page-copyright">
+                <p>Made with <i class="fa fa-heart red-600"></i> from <%= app.author.location %></p>
+                <p><%= app.author.name %> © <%= app.year %></p>
+            </footer>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function goHome() {
+            window.location.href = window.location.origin;
+        }
+    </script>
+    <% if (isDev) { %><script src="//localhost:35729/livereload.js"></script><% } %>
+</body>
+
+</html>

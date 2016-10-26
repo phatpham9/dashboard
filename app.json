@@ -1,0 +1,25 @@
+{
+	"name": "dashboard",
+    "title": "Dashboard",
+    "description": "Dashboard app based on AngularJS, Express and MongoDB",
+    "version": "0.0.1",
+    "year": "2016",
+    "language": "en",
+    "cookieId": "dc7161be3dbf2250c8954e560cc35060",
+
+    "modules": {
+        "main": "dashboard",
+        "auth": "dashboard.auth",
+        "home": "dashboard.home",
+        "setting": "dashboard.setting",
+        "group": "dashboard.group",
+        "user": "dashboard.user"
+    },
+
+    "author": {
+    	"name": "Phat Pham",
+    	"email": "phatpham9@gmail.com",
+    	"url": "http://onroads.xyz",
+    	"location": "Saigon"
+    }
+}
