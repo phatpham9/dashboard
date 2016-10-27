@@ -208,7 +208,7 @@
 
     "USER": "User",
     "USERS": "Users",
-    "NO_USERS_MESSAGE": "There's no users. Create new user now!",
+    "NO_USERS_FOUND": "There's no users. Create new user now!",
     "BUTTON_CREATE_USER": "Create user",
     "CREATE_USER": "Create user",
     "SEARCH_USERS": "Search for users by email address...",
@@ -234,7 +234,7 @@
 
     "GROUP": "Group",
     "GROUPS": "Groups",
-    "NO_GROUPS_MESSAGE": "There's no groups. Create new group now!",
+    "NO_GROUPS_FOUND": "There's no groups. Create new group now!",
     "BUTTON_CREATE_GROUP": "Create group",
     "CREATE_GROUP": "Create group",
     "SEARCH_GROUPS": "Search for groups by name...",

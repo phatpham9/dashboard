@@ -209,7 +209,7 @@
 
     "USER": "Người dùng",
     "USERS": "Người dùng",
-    "NO_USERS_MESSAGE": "Chưa có người dùng. Tạo tài khoản người dùng ngay!",
+    "NO_USERS_FOUND": "Chưa có người dùng. Tạo tài khoản người dùng ngay!",
     "BUTTON_CREATE_USER": "Tạo người dùng",
     "CREATE_USER": "Tạo người dùng",
     "SEARCH_USERS": "Tìm người dùng theo địa chỉ email...",
@@ -235,7 +235,7 @@
 
     "GROUP": "Nhóm",
     "GROUPS": "Nhóm",
-    "NO_GROUPS_MESSAGE": "Chưa có nhóm. Tạo nhóm mới ngay!",
+    "NO_GROUPS_FOUND": "Chưa có nhóm. Tạo nhóm mới ngay!",
     "BUTTON_CREATE_GROUP": "Tạo nhóm",
     "CREATE_GROUP": "Tạo nhóm",
     "SEARCH_GROUPS": "Tìm nhóm theo tên...",
