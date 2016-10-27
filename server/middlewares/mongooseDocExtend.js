@@ -2,11 +2,11 @@
 
 var _ = require('lodash');
 
-// return promise
 module.exports = function mongooseDocExtend (schema) {
-	schema.methods.extend = function extend (source) {
+	// extend updates
+	schema.method('extend', function (source) {
 		var self = this;
-		
+
 		// extend doc
 		_.extend(self, source);
 		// mark all doc paths are modified
@@ -15,5 +15,5 @@ module.exports = function mongooseDocExtend (schema) {
 		});
 
 		return self;
-	}
+	});
 };
