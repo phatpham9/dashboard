@@ -56,12 +56,7 @@ exports.forgotPassword = function(req, res, next) {
                 resetPasswordToken: token,
                 resetPasswordExpires: new Date().setHours(new Date().getHours() + 1) // 1 hour
             })
-            .log()
-            .save()
-            .then(function() {
-                cb();
-            })
-            .catch(cb);
+            .update(cb);
         }
     ], function(err) {
         if (err) {
@@ -105,8 +100,7 @@ exports.resetPassword = function(req, res, next) {
             resetPasswordToken: undefined,
             resetPasswordExpires: undefined
         })
-        .log()
-        .save()
+        .update()
         .then(function() {
             res.json({
                 message: 'Done'

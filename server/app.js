@@ -25,7 +25,7 @@ mongoose.Promise = require('bluebird');
 mongoose.plugin(require('./middlewares/mongooseDefaultFields'));
 mongoose.plugin(require('./middlewares/mongooseDefaultIndexes'));
 mongoose.plugin(require('./middlewares/mongooseDocExtend'));
-mongoose.plugin(require('./middlewares/mongooseDocActionLog'));
+mongoose.plugin(require('./middlewares/mongooseDocMethodsOverride'));
 // connect mongoose
 mongoose.connect(db.mongodb.url);
 mongoose.connection.on('open', function() {

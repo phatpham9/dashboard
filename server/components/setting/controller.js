@@ -90,13 +90,12 @@ exports.create = function(req, res, next) {
                 key: 'Already in use'
             }));
         }
+
         req.setting = new Setting({
             key: req.body.key,
             value: req.body.value
         });
-        req.setting
-        .log(req.user)
-        .save()
+        req.setting.createByUser(req.user)
         .then(function() {
             next();
         })
@@ -169,8 +168,7 @@ exports.update = function(req, res, next) {
             key: req.body.key,
             value: req.body.value
         })
-        .log(req.user)
-        .save()
+        .updateByUser(req.user)
         .then(function() {
             next();
         })
@@ -189,11 +187,7 @@ exports.delete = function(req, res, next) {
         return next(httpError.error403());
     }
 
-    req.setting.extend({
-        isDeleted: true
-    })
-    .log(req.user)
-    .save()
+    req.setting.deleteByUser(req.user)
     .then(function() {
         next();
     })

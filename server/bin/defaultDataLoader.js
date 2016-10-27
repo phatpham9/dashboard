@@ -27,8 +27,7 @@ exports.load = function() {
 							value: object.value,
 							isProtected: true
 						})
-						.log()
-						.save(cb2);
+						.update(cb2);
 					}
 					// update admin group's default permissions
 					else if (modelName === 'group') {
@@ -36,8 +35,7 @@ exports.load = function() {
 							permissions: object.permissions,
 							isProtected: true
 						})
-						.log()
-						.save(cb2);
+						.update(cb2);
 					}
 					// update admin user's default group
 					else if (modelName === 'user') {
@@ -46,8 +44,7 @@ exports.load = function() {
 							group: object.group,
 							isProtected: true
 						})
-						.log()
-						.save(cb2);
+						.update(cb2);
 					}
 					// otherwise do nothing
 					else {
@@ -56,8 +53,7 @@ exports.load = function() {
 				} else {
 					// create new object
 					object = new Model(object);
-					object.log()
-					.save(cb2);
+					object.create(cb2);
 				}
 			})
 			.catch(cb2);

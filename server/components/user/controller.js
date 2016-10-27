@@ -84,7 +84,7 @@ exports.create = function(req, res, next) {
     }
 
     req.body.email = req.body.email.toLowerCase();
-    async.waterfall([
+    async.series([
         // check exist email
         function(cb) {
             User.findOne({
@@ -102,14 +102,11 @@ exports.create = function(req, res, next) {
                 password: req.body.password,
                 group: req.body.group
             });
-            req.userAccount
-            .log(req.user)
-            .save()
-            .then(function() {
-                // add user to ACL
-                ACL.addUser(req.userAccount, cb);
-            })
-            .catch(cb);
+            req.userAccount.createByUser(req.user, cb);
+        },
+        // add user to ACL
+        function(cb) {
+            ACL.addUser(req.userAccount, cb);
         }
     ], function(err) {
         if (err) {
@@ -161,7 +158,7 @@ exports.update = function(req, res, next) {
     }
 
     req.body.email = req.body.email.toLowerCase();
-    async.waterfall([
+    async.series([
         // check exist email
         function(cb) {
             User.findOne({
@@ -181,13 +178,11 @@ exports.update = function(req, res, next) {
                 email: req.body.email,
                 group: req.body.group
             })
-            .log(req.user)
-            .save()
-            .then(function() {
-                // add user to ACL
-                ACL.updateUser(req.userAccount, cb);
-            })
-            .catch(cb);
+            .updateByUser(req.user, cb);
+        },
+        // add user to ACL
+        function(cb) {
+            ACL.updateUser(req.userAccount, cb);
         }
     ], function(err) {
         if (err) {
@@ -208,19 +203,14 @@ exports.delete = function(req, res, next) {
         return next(httpError.error403());
     }
 
-    async.waterfall([
+    async.series([
         // delete user
         function(cb) {
-            req.userAccount.extend({
-                isDeleted: true
-            })
-            .log(req.user)
-            .save()
-            .then(function() {
-                // remove user from ACL
-                ACL.removeUser(req.userAccount, cb);
-            })
-            .catch(cb);
+            req.userAccount.deleteByUser(req.user, cb);
+        },
+        // remove user from ACL
+        function(cb) {
+            ACL.removeUser(req.userAccount, cb);
         }
     ], function(err) {
         if (err) {
@@ -268,7 +258,7 @@ exports.updateProfile = function(req, res, next) {
     }
 
     req.body.email = req.body.email.toLowerCase();
-    async.waterfall([
+    async.series([
         // check exist email
         function(cb) {
             User.findOne({
@@ -282,17 +272,12 @@ exports.updateProfile = function(req, res, next) {
             })
             .catch(cb);
         },
-        // update data
+        // update user
         function(cb) {
             req.userAccount.extend({
                 email: req.body.email
             })
-            .log(req.user)
-            .save()
-            .then(function() {
-                cb();
-            })
-            .catch(cb);
+            .updateByUser(req.user, cb);
         }
     ], function(err) {
         if (err) {
@@ -318,17 +303,15 @@ exports.changePassword = function(req, res, next) {
     req.userAccount.extend({
         password: req.body.password
     })
-    .log(req.user)
-    .save()
+    .updateByUser(req.user)
     .then(function() {
+        res.json({
+            message: 'Done'
+        });
         // send email to user
         if (req.userAccount.email) {
             mailer.changePassword(req, res, req.userAccount);
         }
-
-        res.json({
-            message: 'Done'
-        });
     })
     .catch(function(err) {
         next(httpError.error500(err));

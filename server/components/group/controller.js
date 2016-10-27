@@ -79,21 +79,18 @@ exports.create = function(req, res, next) {
         return next(httpError.error400(req.validationErrors()));
     }
 
-    async.waterfall([
+    async.series([
         // save group
         function(cb) {
             req.group = new Group({
                 name: req.body.name,
                 permissions: req.body.permissions
             });
-            req.group
-            .log(req.user)
-            .save()
-            .then(function() {
-                // add group to ACL
-                ACL.addGroup(req.group, cb);
-            })
-            .catch(cb);
+            req.group.createByUser(req.user, cb);
+        },
+        // add group to ACL
+        function(cb) {
+            ACL.addGroup(req.group, cb);
         }
     ], function(err) {
         if (err) {
@@ -139,20 +136,18 @@ exports.update = function(req, res, next) {
         return next(httpError.error400(req.validationErrors()));
     }
 
-    async.waterfall([
+    async.series([
         // update group
         function(cb) {
             req.group.extend({
                 name: req.body.name,
                 permissions: req.body.permissions
             })
-            .log(req.user)
-            .save()
-            .then(function() {
-                // update group to ACL
-                ACL.updateGroup(req.group, cb);
-            })
-            .catch(cb);
+            .updateByUser(req.user, cb);
+        },
+        // update group to ACL
+        function(cb) {
+            ACL.updateGroup(req.group, cb);
         }
     ], function(err) {
         if (err) {
@@ -173,7 +168,7 @@ exports.delete = function(req, res, next) {
         return next(httpError.error403());
     }
 
-    async.waterfall([
+    async.series([
         // check if not empty
         function(cb) {
             User.count({
@@ -190,16 +185,11 @@ exports.delete = function(req, res, next) {
         },
         // delete group
         function(cb) {
-            req.group.extend({
-                isDeleted: true
-            })
-            .log(req.user)
-            .save()
-            .then(function() {
-                // remove group from ACL
-                ACL.removeGroup(req.group, cb);
-            })
-            .catch(cb);
+            req.group.deleteByUser(req.user, cb);
+        },
+        // remove group from ACL
+        function(cb) {
+            ACL.removeGroup(req.group, cb);
         }
     ], function(err) {
         if (err) {
