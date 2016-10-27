@@ -81,7 +81,7 @@ angular.module(window.APP.modules.setting)
                 value: undefined
             });
 
-            $scope.selectedType = 'JSON';
+            $scope.selectedType = 'text';
             $scope.tmpValue = undefined;
         } else {
             $scope.state = 'details';
