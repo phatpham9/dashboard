@@ -49,6 +49,7 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="text-center" ng-if="settings.length === 0" ng-bind="'NO_RESULTS' | translate"></div>
                         </div>
                         <nav class="clearfix">
                             <pagesize></pagesize>
