@@ -13,7 +13,7 @@ exports.all = function(req, res, next) {
     };
     var select = '-isDeleted -created -updated -deleted -__v';
     var sort = req.query.sort || 'key';
-    var limit = req.query.limit || 25;
+    var limit = Number(req.query.limit) || 25;
     var skip = req.query.page && req.query.page > 0 ? (req.query.page - 1) * limit : 0;
     var populate = [];
     if (req.query.query) {
