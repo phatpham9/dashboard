@@ -175,6 +175,13 @@
     "RESET_PASSWORD_SUCCESS_TITLE": "Reset password successful!",
     "RESET_PASSWORD_SUCCESS_MESSAGE": "Your new password has been saved. Now you can go back to login.",
     "SUCCESSFUL": "Successful",
+    "SIGN_UP": "Sign up",
+    "SIGN_UP_DESC": "Enter email address & password.",
+    "HAVE_AN_ACCOUNT_GO_BACK": "Have an account already? Please go to",
+    "BUTTON_SIGN_UP": "Sign up",
+    "BY_CLICKING_SIGNUP_YOU_AGREE_OUR_X_AND_X": "By clicking Sign Up, you agree to our %s and %s.",
+    "SIGN_UP_SUCCESS_TITLE": "Sign up successful!",
+    "SIGN_UP_SUCCESS_MESSAGE": "Congratulation! Now you can login.",
 
     "HOME": "Home",
     "PROFILE": "Profile",
