@@ -5,7 +5,59 @@ var User = mongoose.model('User');
 var async = require('async');
 var crypto = require('crypto');
 var mailer = require('../../services/mailer');
+var ACL = require('../../services/ACL');
 var httpError = require('../../services/httpError');
+
+exports.signup = function(req, res, next) {
+    // validate input data
+    req.checkBody('email', 'Invalid email').notEmpty().len(1, 256).isEmail();
+    req.checkBody('password', 'Min 6 characters').notEmpty().len(6, 256);
+    if (req.validationErrors()) {
+        return next(httpError.error400(req.validationErrors()));
+    }
+
+    req.body.email = req.body.email.toLowerCase();
+    async.series([
+        // check exist account or email
+        function(cb) {
+            User.findOne({
+                $or: [{
+                    email: req.body.email
+                }]
+            })
+            .then(function(user) {
+                cb(user ? 'ALREADY_IN_USE' : null);
+            })
+            .catch(cb);
+        },
+        // save user
+        function(cb) {
+            req.userAccount = new User({
+                email: req.body.email,
+                password: req.body.password
+            });
+            req.userAccount.create(cb);
+        },
+        // add user to ACL
+        // function(cb) {
+        //     ACL.addUser(req.userAccount, cb);
+        // }
+    ], function(err) {
+        if (err) {
+            if (err === 'ALREADY_IN_USE') {
+                return next(httpError.error400({
+                    email: 'Email already in use'
+                }));
+            }
+            return next(httpError.error500(err));
+        }
+        next();
+        // send welcome email
+        mailer.signupSuccessful(req, res, req.userAccount);
+        // notify admin that there's new registered account
+        mailer.alertNewUser(req, res, req.userAccount);
+    });
+};
 
 exports.login = function(req, res, next) {
     res.json(req.user.securedInfo());

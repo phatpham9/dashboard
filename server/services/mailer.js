@@ -3,6 +3,24 @@
 var emailConfig = require('../config/email');
 var nodemailer = require('nodemailer');
 
+exports.signupSuccessful = function(req, res, user) {
+    res.render('emails/signup-successful', {
+        user: user,
+        loginUrl: 'http://' + req.headers.host + '/#/login'
+    }, function (err, html) {
+        if (err) {
+            console.error(err);
+        } else {
+            send({
+                from: emailConfig.emailFrom,
+                to: user.email,
+                subject: 'You have signed up!',
+                html: html
+            });
+        }
+    });
+};
+
 exports.forgotPassword = function(req, res, user, token) {
     res.render('emails/forgot-password', {
         user: user,
@@ -56,6 +74,23 @@ exports.changePassword = function(req, res, user) {
     });
 };
 
+exports.alertNewUser = function(req, res, user) {
+    res.render('emails/new-user-alert', {
+        user: user
+    }, function (err, html) {
+        if (err) {
+            console.error(err);
+        } else {
+            send({
+                from: emailConfig.emailFrom,
+                to: emailConfig.admin,
+                subject: 'New user registered!',
+                html: html
+            });
+        }
+    });
+};
+
 function send(mailOptions) {
     var transport = nodemailer.createTransport(emailConfig.mailer);
     transport.sendMail(mailOptions, function(err, res) {
@@ -64,14 +99,5 @@ function send(mailOptions) {
         } else {
             console.log(res);
         }
-    });
-};
-
-exports.notifyAdmin = function(subject, content) {
-    send({
-        from: emailConfig.emailFrom,
-        to: emailConfig.admin,
-        subject: subject,
-        html: content
     });
 };

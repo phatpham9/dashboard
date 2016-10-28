@@ -13,6 +13,7 @@ angular.module(window.APP.modules.main)
             init: function() {
                 self.titles = {
                     login: 'LOGIN',
+                    signup: 'SIGN_UP',
                     logout: 'LOGOUT',
                     'forgot-password': 'FORGOT_PASSWORD',
                     'reset-password': 'RESET_PASSWORD',

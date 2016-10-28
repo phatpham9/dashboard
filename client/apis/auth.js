@@ -11,6 +11,12 @@ angular.module(window.APP.modules.main)
                     action: 'login'
                 }
             },
+            signup: {
+                method: 'POST',
+                params: {
+                    action: 'signup'
+                }
+            },
             forgotPassword: {
                 method: 'POST',
                 params: {

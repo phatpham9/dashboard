@@ -1,0 +1,27 @@
+<div class="page-content" ng-controller="signup">
+    <div class="page-auth-main">
+        <auth-page-header heading-text="'SIGN_UP' | translate" sub-text="'SIGN_UP_DESC' | translate"></auth-page-header>
+
+        <form id="form" name="form" novalidate ng-submit="signup(form)">
+            <div class="form-group" ng-class="{'has-error': form.$submitted && (form.email.$invalid || validationErrors.email)}">
+                <label class="sr-only" for="inputEmail" ng-bind="'EMAIL' | translate"></label>
+                <input type="email" class="form-control" id="inputEmail" name="email" placeholder="{{'EMAIL' | translate}}" ng-model="auth.email" required maxlength="256">
+                <small class="help-block" ng-if="form.$submitted && form.email.$error.required" ng-bind="'VALIDATION_REQUIRED' | translate"></small>
+                <small class="help-block" ng-if="form.$submitted && form.email.$error.email" ng-bind="'VALIDATION_EMAIL' | translate"></small>
+                <small class="help-block" ng-if="form.$submitted && validationErrors.email" ng-bind="validationErrors.email"></small>
+            </div>
+            <div class="form-group" ng-class="{'has-error': form.$submitted && (form.password.$invalid || validationErrors.password)}">
+                <label class="sr-only" for="inputPassword" ng-bind="'PASSWORD' | translate"></label>
+                <input type="password" class="form-control" id="inputPassword" name="password" placeholder="{{'PASSWORD' | translate}}" ng-model="auth.password" required minlength="6" maxlength="256">
+                <small class="help-block" ng-if="form.$submitted && form.password.$error.required" ng-bind="'VALIDATION_REQUIRED' | translate"></small>
+                <small class="help-block" ng-if="form.$submitted && form.password.$error.minlength" ng-bind="'VALIDATION_MINLENGTH' | translate: [6]"></small>
+                <small class="help-block" ng-if="form.$submitted && validationErrors.password" ng-bind="validationErrors.password"></small>
+            </div>
+            <div class="form-group" ng-bind-html="'BY_CLICKING_SIGNUP_YOU_AGREE_OUR_X_AND_X' | translate: [terms, policies]"></div>
+            <button type="submit" class="btn btn-primary btn-block" ng-bind="'BUTTON_SIGN_UP' | translate"></button>
+        </form>
+        <p>{{'HAVE_AN_ACCOUNT_GO_BACK' | translate}} <a ui-sref="login" ng-bind="'BUTTON_LOGIN' | translate"></a>.</p>
+
+        <auth-page-footer></auth-page-footer>
+    </div>
+</div>

@@ -40,7 +40,7 @@ angular.module(window.APP.modules.main, [
         $rootScope.AUTH = new auth();
 
         $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-            var authPages = ['login', 'forgot-password', 'reset-password', 'page-successful'];
+            var authPages = ['login', 'signup', 'forgot-password', 'reset-password', 'page-successful'];
             if (authPages.indexOf(toState.name) !== -1) {
                 $('body').addClass('page-auth layout-full page-dark');
             } else {

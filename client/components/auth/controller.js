@@ -32,6 +32,31 @@ angular.module(window.APP.modules.auth)
     }
 ])
 
+.controller('signup', ['$scope', '$state', '$filter', 'authAPI',
+    function($scope, $state, $filter, authAPI) {
+        $scope.auth = {
+            email: undefined,
+            password: undefined
+        };
+        $scope.validationErrors = {};
+        $scope.terms = '<a href="#">' + $filter('translate')('TERMS') + '</a>';
+        $scope.policies = '<a href="#">' + $filter('translate')('POLICIES') + '</a>';
+
+        $scope.signup = function(form) {
+            if (form.$valid) {
+                authAPI.signup($scope.auth, function(user) {
+                    $scope.validationErrors.email = undefined;
+                    $state.go('page-successful', {page: 'signup'});
+                }, function(res) {
+                    if (res.data.validationErrors) {
+                        $scope.validationErrors = res.data.validationErrors;
+                    }
+                });
+            }
+        };
+    }
+])
+
 .controller('forgotPassword', ['$scope', '$state', '$filter', 'authAPI',
     function($scope, $state, $filter, authAPI) {
         $scope.auth = {
@@ -80,6 +105,10 @@ angular.module(window.APP.modules.auth)
 .controller('pageSuccessful', ['$scope', '$state', '$stateParams', '$filter',
     function($scope, $state, $stateParams, $filter) {
         switch($stateParams.page) {
+            case 'signup':
+                $scope.title = 'SIGN_UP_SUCCESS_TITLE';
+                $scope.message = 'SIGN_UP_SUCCESS_MESSAGE';
+                break;
             case 'forgot-password':
                 $scope.title = 'RESET_PASSWORD_REQUEST_SUCCESS_TITLE';
                 $scope.message = 'RESET_PASSWORD_REQUEST_SUCCESS_MESSAGE';

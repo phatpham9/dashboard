@@ -9,6 +9,10 @@ module.exports = function(app) {
     app.route('/api/resetPassword/:token')
         .post(controller.resetPassword);
 
+    app.route('/api/signup')
+        .post(controller.signup, passport.authenticate('local', {
+            failureFlash: false
+        }), controller.login);
     app.route('/api/login')
         .post(passport.authenticate('local', {
             failureFlash: false

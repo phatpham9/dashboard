@@ -2,7 +2,8 @@
 
 angular.module(window.APP.modules.auth, [
     'ui.router',
-    'oc.lazyLoad'
+    'oc.lazyLoad',
+    'ngSanitize'
 ])
 
 .config(['$stateProvider', '$ocLazyLoadProvider',
@@ -11,6 +12,21 @@ angular.module(window.APP.modules.auth, [
             .state('login', {
                 url: '/login?redirectState&params',
                 templateUrl: '/components/auth/views/login.html',
+                resolve: {
+                    resources: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            '/components/auth/controller.js',
+                            '/apis/auth.js'
+                        ]);
+                    }]
+                },
+                auth: {
+                    requiresLogin: false
+                }
+            })
+            .state('signup', {
+                url: '/signup',
+                templateUrl: '/components/auth/views/signup.html',
                 resolve: {
                     resources: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([
