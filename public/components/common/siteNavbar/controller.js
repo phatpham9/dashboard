@@ -1,0 +1,1 @@
+"use strict";angular.module(window.APP.modules.main).directive("siteNavbar",function(){return{restrict:"E",replace:!0,templateUrl:"/components/common/siteNavbar/view.html"}});

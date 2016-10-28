@@ -1,0 +1,1 @@
+"use strict";angular.module(window.APP.modules.main).directive("languageSwitcher",function(){return{templateUrl:"/components/common/languageSwitcher/view.html",restrict:"E",replace:!0,controller:["$rootScope","$scope",function(a,b){b.languages=[{key:"en",name:"English",icon:"flag-icon-us"},{key:"vi",name:"Việt Nam",icon:"flag-icon-vn"}]}]}});

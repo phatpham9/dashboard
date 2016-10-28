@@ -1,0 +1,1 @@
+"use strict";angular.module(window.APP.modules.main).filter("money",["$rootScope","$locale","$filter",function(a,b,c){return function(a){return c("currency")(a,b.NUMBER_FORMATS.CURRENCY_SYM,0)}}]);

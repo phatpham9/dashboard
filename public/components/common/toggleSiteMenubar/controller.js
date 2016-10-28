@@ -1,0 +1,1 @@
+"use strict";angular.module(window.APP.modules.main).directive("toggleSiteMenubar",["siteMenubar",function(a){return{restrict:"A",link:function(b,c,d){c.bind("click",function(){a.toggle()})}}}]);

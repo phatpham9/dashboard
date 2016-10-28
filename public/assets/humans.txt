@@ -1,0 +1,9 @@
+/* AUTHOR */
+	Phat Pham
+	Contact: phatpham9 [at] gmail.com
+	From: Saigon Vietnam
+
+/* SITE */
+	Language: English / Vietnamese
+	Doctype: HTML5
+	IDE: Sublime Text
