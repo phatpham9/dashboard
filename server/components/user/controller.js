@@ -78,7 +78,6 @@ exports.create = function(req, res, next) {
     // validate input data
     req.checkBody('email', 'Invalid email').notEmpty().len(1, 256).isEmail();
     req.checkBody('password', 'Min 6 characters').notEmpty().len(6, 256);
-    req.checkBody('group', 'Required').notEmpty();
     if (req.validationErrors()) {
         return next(httpError.error400(req.validationErrors()));
     }
@@ -152,7 +151,6 @@ exports.update = function(req, res, next) {
 
     // validate input data
     req.checkBody('email', 'Invalid email').notEmpty().len(1, 256).isEmail();
-    req.checkBody('group', 'Required').notEmpty();
     if (req.validationErrors()) {
         return next(httpError.error400(req.validationErrors()));
     }

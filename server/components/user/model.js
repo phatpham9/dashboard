@@ -17,8 +17,7 @@ module.exports = function() {
         },
         group: {
             type: Schema.ObjectId,
-            ref: 'Group',
-            required: true
+            ref: 'Group'
         },
         isProtected: {
             type: Boolean,

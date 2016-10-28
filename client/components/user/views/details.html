@@ -54,7 +54,6 @@
                                 <select class="form-control" id="group" name="group" ng-options="group as group.name for group in groups track by group._id" ng-model="user.group">
                                     <option value="" ng-bind="'SELECT_GROUP' | translate"></option>
                                 </select>
-                                <small class="help-block" ng-if="form.$submitted && form.group.$error.required" ng-bind="'VALIDATION_REQUIRED' | translate"></small>
                                 <small class="help-block" ng-if="form.$submitted && validationErrors.group" ng-bind="validationErrors.group"></small>
                             </div>
                             <div class="col-sm-6" ng-if="state === 'details' && !user.canEdit()">

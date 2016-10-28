@@ -40,7 +40,8 @@
                                             <a ui-sref="userDetails({userId: user._id})" ng-bind="user.email"></a>
                                         </td>
                                         <td>
-                                            <a ui-sref="groupDetails({groupId: user.group._id})" ng-bind="user.group.name"></a>
+                                            <a ui-sref="groupDetails({groupId: user.group._id})" ng-bind="user.group.name" ng-if="user.group"></a>
+                                            <span ng-if="!user.group">—</span>
                                         </td>
                                         <td class="text-right">
                                             <button type="button" class="btn btn-xs btn-danger" ng-if="user.canDelete()" ng-click="delete(user)">
