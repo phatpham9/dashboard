@@ -33,7 +33,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="group in groups">
+                                    <tr ng-repeat="group in groups track by group._id">
                                         <td ng-bind="$index + (query.limit * (query.page - 1)) + 1"></td>
                                         <td>
                                             <a ui-sref="groupDetails({groupId: group._id})" ng-bind="group.name"></a>

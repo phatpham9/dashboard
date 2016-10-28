@@ -1,7 +1,7 @@
 ﻿<div class="site-menubar" ng-if="USER.isLoggedin() && !hiddenSidebar">
     <div class="site-menubar-body">
         <ul class="site-menu">
-            <li ng-repeat="item in menubar" class="site-menu-{{item.type === 'item' ? 'item' : 'category'}}" ng-class="{'open': activeItem(item.activeStates)}" ng-if="AUTH.isAllowed(item.auth)">
+            <li ng-repeat="item in menubar track by $index" class="site-menu-{{item.type === 'item' ? 'item' : 'category'}}" ng-class="{'open': activeItem(item.activeStates)}" ng-if="AUTH.isAllowed(item.auth)">
                 <a ui-sref="{{item.state}}" ng-if="item.type === 'item' && !item.sub" ng-click="toggleMenubar()">
                     <i class="site-menu-icon" ng-class="item.iconClass" aria-hidden="true"></i>
                     <span class="site-menu-title" ng-bind="item.title | translate"></span>
@@ -15,7 +15,7 @@
                     <span class="site-menu-arrow"></span>
                 </a>
                 <ul class="site-menu-sub" ng-if="item.type === 'item' && item.sub">
-                    <li class="site-menu-item" ng-repeat="subitem in item.sub" ng-class="{'open': activeItem(subitem.activeStates)}" ng-if="AUTH.isAllowed(subitem.auth)">
+                    <li class="site-menu-item" ng-repeat="subitem in item.sub track by $index" ng-class="{'open': activeItem(subitem.activeStates)}" ng-if="AUTH.isAllowed(subitem.auth)">
                         <a ui-sref="{{subitem.state}}" ng-click="toggleMenubar()">
                             <i class="site-menu-icon" aria-hidden="true"></i>
                             <span class="site-menu-title" ng-bind="subitem.title | translate"></span>

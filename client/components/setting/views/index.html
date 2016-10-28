@@ -34,7 +34,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="setting in settings">
+                                    <tr ng-repeat="setting in settings track by setting._id">
                                         <td ng-bind="$index + (query.limit * (query.page - 1)) + 1"></td>
                                         <td>
                                             <a ui-sref="settingDetails({settingId: setting._id})" ng-bind="setting.key"></a>
