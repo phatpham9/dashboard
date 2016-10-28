@@ -39,8 +39,8 @@
                                         <td>
                                             <a ui-sref="settingDetails({settingId: setting._id})" ng-bind="setting.key"></a>
                                         </td>
-                                        <td ng-bind="setting.value | json | limitTo : 100"></td>
-                                        <td ng-bind="setting.value | dataType"></td>
+                                        <td ng-bind="displayValue(setting.value)"></td>
+                                        <td ng-bind="displayDataType(setting.value)"></td>
                                         <td class="text-right">
                                             <button type="button" class="btn btn-xs btn-danger" ng-if="setting.canDelete()" ng-click="delete(setting)">
                                                 <i class="fa fa-trash" aria-hidden="true"></i>

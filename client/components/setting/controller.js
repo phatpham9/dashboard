@@ -16,6 +16,34 @@ angular.module(window.APP.modules.setting)
         search();
 
         // public functions
+        $scope.displayDataType = function(value) {
+            switch(typeof value) {
+                case 'object':
+                    return 'JSON';
+                case 'number':
+                    return 'number';
+                default:
+                    return 'text';
+            }
+        };
+        $scope.displayValue = function(value) {
+            var result;
+            switch(typeof value) {
+                case 'object':
+                    result = JSON.stringify(value);
+                    break;
+                case 'number':
+                    result = value;
+                    break;
+                default:
+                    result = String(value);
+                    break;
+            }
+            if (typeof value !== 'number' && result.length > 100) {
+                return result.substring(100) + '...';
+            }
+            return result;
+        };
         $scope.search = function(sortBy) {
             if (sortBy) {
                 $scope.query.sort = sortBy;
