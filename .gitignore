@@ -41,6 +41,6 @@ jspm_packages
 bower_components
 
 # Build files
-#public
-#server/views/layout.html
-#server/views/errors/*.html
+public
+server/views/layout.html
+server/views/errors/*.html
