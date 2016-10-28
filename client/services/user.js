@@ -17,7 +17,7 @@ angular.module(window.APP.modules.main)
                     self._id = _user._id;
                     self.email = _user.email;
                     self.group = _user.group;
-                    self.permissions = _user.group.permissions;
+                    self.permissions = _user.group ? _user.group.permissions : {};
                 }
             },
             isLoggedin: function() {
@@ -27,7 +27,7 @@ angular.module(window.APP.modules.main)
                 self._id = _user._id;
                 self.email = _user.email;
                 self.group = _user.group;
-                self.permissions = _user.group.permissions;
+                self.permissions = _user.group ? _user.group.permissions : {};
                 $cookieStore.put(APP.cookieId, _user);
             },
             logout: function() {
