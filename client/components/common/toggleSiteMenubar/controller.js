@@ -7,8 +7,11 @@ angular.module(window.APP.modules.main)
         return {
             restrict: 'A',
             link: function(scope, elem, attr) {
-                elem.bind('click', function() {
+                elem.on('click', function() {
                     siteMenubar.toggle();
+                });
+                scope.$on('$destroy', function() {
+                    elem.off('click');
                 });
             }
         };

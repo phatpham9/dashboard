@@ -32,7 +32,7 @@ angular.module(window.APP.modules.main)
                 }
 
                 // bind click event to col
-                self.click(function() {
+                self.on('click', function() {
                     if (self.hasClass('asc')) {
                         resetCols();
                         self.addClass('desc');
@@ -42,6 +42,10 @@ angular.module(window.APP.modules.main)
                         self.addClass('asc');
                         scope.sortAction(self.attr('sort-by'));
                     }
+                });
+
+                scope.$on('$destroy', function() {
+                    self.off('click');
                 });
             });
         }
