@@ -10,10 +10,12 @@ module.exports = function(app) {
     app.route('/api/setting/count')
     	.get(auth.isAllowed, controller.count);
     
+    app.route('/api/setting/MENUBAR')
+        .get(auth.isLoggedin, controller.getMenubar, controller.show);
+
     app.param('settingId', controller.get);
     app.route('/api/setting/:settingId')
         .get(auth.isAllowed, controller.show)
         .put(auth.isAllowed, controller.update, controller.show)
         .delete(auth.isAllowed, controller.delete, controller.show);
-
 };

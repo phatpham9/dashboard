@@ -199,3 +199,22 @@ exports.delete = function(req, res, next) {
 exports.show = function(req, res, next) {
     res.json(req.setting.securedInfo());
 };
+
+exports.getMenubar = function(req, res, next) {
+    var query = {
+        key: 'MENUBAR',
+        isDeleted: false
+    };
+
+    Setting.findOne(query)
+    .then(function(setting) {
+        if (!setting) {
+            return next(httpError.error404());
+        }
+        req.setting = setting;
+        next();
+    })
+    .catch(function(err) {
+        next(httpError.error500(err));
+    });
+};
