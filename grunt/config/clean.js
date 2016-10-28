@@ -4,9 +4,11 @@
  * For usage docs see:
  * 		https://github.com/gruntjs/grunt-contrib-clean
  */
+
+var app = require('../../app.json');
+var filename = app.name + '-' + app.version;
+
 module.exports = function(grunt) {
-    var app = require('../../app.json');
-    var filename = app.name + '-' + app.version;
 	grunt.config.set('clean', {
 		dev: [
             // client assets

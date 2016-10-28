@@ -4,16 +4,19 @@
  * For usage docs see:
  *      https://github.com/gruntjs/grunt-contrib-uglify
  */
+
+var app = require('../../app.json');
+var filename = app.name + '-' + app.version;
+
 module.exports = function(grunt) {
-    var app = require('../../app.json');
-    var files = {};
-    files['public/assets/scripts/' + app.name + '-' + app.version + '.js'] = 'public/assets/scripts/concat.js';
     grunt.config.set('uglify', {
         options: {
             preserveComments: false
         },
         vendor: {
-            files: files
+            files: {
+                ['public/assets/scripts/' + filename + '.js']: 'public/assets/scripts/concat.js'
+            }
         },
         public: {
             files: [{

@@ -5,8 +5,9 @@
  *      https://github.com/shama/grunt-ejs
  */
 
+var app = require('../../app.json');
+
  module.exports = function(grunt) {
-    var app = require('../../app.json');
     grunt.config.set('ejs', {
         dev: {
             cwd: 'server/views',
