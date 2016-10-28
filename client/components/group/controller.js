@@ -2,8 +2,8 @@
 
 angular.module(window.APP.modules.group)
 
-.controller('groups', ['$scope', '$state', '$stateParams', '$filter', 'alertify', 'groupAPI',
-    function($scope, $state, $stateParams, $filter, alertify, groupAPI) {
+.controller('groups', ['$scope', '$state', '$stateParams', 'translate', 'alertify', 'groupAPI',
+    function($scope, $state, $stateParams, translate, alertify, groupAPI) {
         $scope.query = {
             query: undefined,
             sort: 'name',
@@ -27,7 +27,7 @@ angular.module(window.APP.modules.group)
         };
         $scope.delete = function(group) {
             if (group && group.canDelete()) {
-                if (confirm($filter('translate')('CONFIRM_DELETE_X', group.name))) {
+                if (confirm(translate('CONFIRM_DELETE_X', group.name))) {
                     deleteGroup(group, function(group) {
                         $scope.groups.forEach(function(obj, i) {
                             if (obj._id === group._id) {
@@ -66,18 +66,18 @@ angular.module(window.APP.modules.group)
                 if (cb) {
                     cb(group);
                 }
-                alertify.success($filter('translate')('X_HAS_BEEN_DELETED', group.name));
+                alertify.success(translate('X_HAS_BEEN_DELETED', group.name));
             }, function(res) {
                 if (res.data.validationErrors && res.data.validationErrors.message) {
-                    alertify.alert($filter('translate')(res.data.validationErrors.message));
+                    alertify.alert(translate(res.data.validationErrors.message));
                 }
             });
         }
     }
 ])
 
-.controller('groupDetails', ['$scope', '$state', '$stateParams', '$filter', 'alertify', 'groupAPI', 'userAPI', 'settingAPI',
-    function($scope, $state, $stateParams, $filter, alertify, groupAPI, userAPI, settingAPI) {
+.controller('groupDetails', ['$scope', '$state', '$stateParams', 'translate', 'alertify', 'groupAPI', 'userAPI', 'settingAPI',
+    function($scope, $state, $stateParams, translate, alertify, groupAPI, userAPI, settingAPI) {
         if ($state.current.name === 'groupCreate') {
             $scope.state = 'create';
             $scope.group = new groupAPI({
@@ -140,7 +140,7 @@ angular.module(window.APP.modules.group)
         };
         $scope.delete = function() {
             if ($scope.group.canDelete()) {
-                if (confirm($filter('translate')('CONFIRM_DELETE_X', $scope.group.name))) {
+                if (confirm(translate('CONFIRM_DELETE_X', $scope.group.name))) {
                     deleteGroup($scope.group, function(group) {
                         $scope.form.$setPristine();
                         $state.go('groups');
@@ -163,7 +163,7 @@ angular.module(window.APP.modules.group)
                 if (cb) {
                     cb(group);
                 }
-                alertify.success($filter('translate')('X_HAS_BEEN_CREATED', group.name));
+                alertify.success(translate('X_HAS_BEEN_CREATED', group.name));
             }, function(res) {
                 if (res.data.validationErrors) {
                     $scope.validationErrors = res.data.validationErrors;
@@ -175,7 +175,7 @@ angular.module(window.APP.modules.group)
                 if (cb) {
                     cb(group);
                 }
-                alertify.success($filter('translate')('X_HAS_BEEN_UPDATED', group.name));
+                alertify.success(translate('X_HAS_BEEN_UPDATED', group.name));
             }, function(res) {
                 if (res.data.validationErrors) {
                     $scope.validationErrors = res.data.validationErrors;
@@ -187,10 +187,10 @@ angular.module(window.APP.modules.group)
                 if (cb) {
                     cb(group);
                 }
-                alertify.success($filter('translate')('X_HAS_BEEN_DELETED', group.name));
+                alertify.success(translate('X_HAS_BEEN_DELETED', group.name));
             }, function(res) {
                 if (res.data.validationErrors && res.data.validationErrors.message) {
-                    alertify.alert($filter('translate')(res.data.validationErrors.message));
+                    alertify.alert(translate(res.data.validationErrors.message));
                 }
             });
         }

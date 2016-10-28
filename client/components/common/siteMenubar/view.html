@@ -4,21 +4,21 @@
             <li ng-repeat="item in menubar track by $index" class="site-menu-{{item.type === 'item' ? 'item' : 'category'}}" ng-class="{'open': activeItem(item.activeStates)}" ng-if="AUTH.isAllowed(item.auth)">
                 <a ui-sref="{{item.state}}" ng-if="item.type === 'item' && !item.sub" ng-click="toggleMenubar()">
                     <i class="site-menu-icon" ng-class="item.iconClass" aria-hidden="true"></i>
-                    <span class="site-menu-title" ng-bind="item.title | translate"></span>
+                    <span class="site-menu-title" ng-bind-transl="item.title"></span>
                     <div class="site-menu-label" ng-if="item.externalLink">
                         <i class="fa fa-external-link"></i>
                     </div>
                 </a>
                 <a ng-click="toggleSubmenu($event)" ng-if="item.type === 'item' && item.sub">
                     <i class="site-menu-icon" ng-class="item.iconClass" aria-hidden="true"></i>
-                    <span class="site-menu-title" ng-bind="item.title | translate"></span>
+                    <span class="site-menu-title" ng-bind-transl="item.title"></span>
                     <span class="site-menu-arrow"></span>
                 </a>
                 <ul class="site-menu-sub" ng-if="item.type === 'item' && item.sub">
                     <li class="site-menu-item" ng-repeat="subitem in item.sub track by $index" ng-class="{'open': activeItem(subitem.activeStates)}" ng-if="AUTH.isAllowed(subitem.auth)">
                         <a ui-sref="{{subitem.state}}" ng-click="toggleMenubar()">
                             <i class="site-menu-icon" aria-hidden="true"></i>
-                            <span class="site-menu-title" ng-bind="subitem.title | translate"></span>
+                            <span class="site-menu-title" ng-bind-transl="subitem.title"></span>
                         </a>
                         <div class="site-menu-label" ng-if="subitem.externalLink">
                             <i class="fa fa-external-link"></i>
@@ -29,13 +29,13 @@
         </ul>
     </div>
     <div class="site-menubar-footer">
-        <a ui-sref="profile" tooltip-placement="top" tooltip="{{'PROFILE' | translate}}">
+        <a ui-sref="profile">
             <span class="fa fa-user" aria-hidden="true"></span>
         </a>
-        <a ui-sref="helps" tooltip-placement="top" tooltip="{{'BUTTON_HELPS' | translate}}">
+        <a ui-sref="helps">
             <span class="fa fa-question" aria-hidden="true"></span>
         </a>
-        <a ui-sref="logout" class="fold-show" tooltip-placement="top" tooltip="{{'BUTTON_LOGOUT' | translate}}">
+        <a ui-sref="logout" class="fold-show">
             <span class="fa fa-power-off" aria-hidden="true"></span>
         </a>
     </div>

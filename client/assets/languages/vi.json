@@ -94,6 +94,7 @@
     "CONFIRM_REMOVE_X": "Xác nhận xoá %s?",
     "CONFIRM_UPDATE_INVENTORY_X": "Xác nhận đóng đơn hàng %s và cập nhật số lượng tồn kho?",
 
+    "AND": "và",
     "MADE_WITH": "Phát triển",
 	"BY": "bởi",
     "FROM": "tại",
@@ -180,7 +181,7 @@
     "SIGN_UP_DESC": "Nhập địa chỉ email và mật khẩu.",
     "HAVE_AN_ACCOUNT_GO_BACK": "Bạn đã có tài khoản?",
     "BUTTON_SIGN_UP": "Đăng ký",
-    "BY_CLICKING_SIGNUP_YOU_AGREE_OUR_X_AND_X": "Bấm đăng ký đồng nghĩa với việc đồng ý %s và %s của chúng tôi.",
+    "BY_CLICKING_SIGNUP_YOU_AGREE_OUR": "Bấm đăng ký đồng nghĩa với việc đồng ý",
     "SIGN_UP_SUCCESS_TITLE": "Đăng ký tài khoản thành công!",
     "SIGN_UP_SUCCESS_MESSAGE": "Chức mừng bạn! Bây giờ bạn đã có thể đăng nhập vào hệ thống.",
 

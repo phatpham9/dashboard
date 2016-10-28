@@ -2,8 +2,8 @@
 
 angular.module(window.APP.modules.main)
 
-.service('pageTitle', ['APP', '$rootScope', '$filter',
-    function(APP, $rootScope, $filter) {
+.service('pageTitle', ['APP', '$rootScope', 'translate',
+    function(APP, $rootScope, translate) {
         var self;
         var pageTitle = function() {
             self = this;
@@ -35,7 +35,7 @@ angular.module(window.APP.modules.main)
                 };
 
                 $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-                    self.change($filter('translate')(self.titles[toState.name]));
+                    self.change(translate(self.titles[toState.name]));
                 });
             },
             change: function(title) {

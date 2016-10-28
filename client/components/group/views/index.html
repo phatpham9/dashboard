@@ -2,13 +2,13 @@
     <div class="page-header">
         <h1 class="page-title">
             <ol class="breadcrumb">
-                <li><span class="icon fa fa-gear fa-fw"></span><a ui-sref="settings" ng-bind="'SETTINGS' | translate"></a></li>
-                <li ng-bind="'GROUPS' | translate"></li>
+                <li><span class="icon fa fa-gear fa-fw"></span><a ui-sref="settings" ng-bind-transl="'SETTINGS'"></a></li>
+                <li ng-bind-transl="'GROUPS'"></li>
             </ol>
         </h1>
         <div class="page-header-actions">
             <a class="btn btn-primary" ui-sref="groupCreate" ng-if="canCreate()">
-                <i class="icon fa fa-plus fa-fw"></i> <span class="hidden-xs" ng-bind="'BUTTON_CREATE_GROUP' | translate"></span>
+                <i class="icon fa fa-plus fa-fw"></i> <span class="hidden-xs" ng-bind-transl="'BUTTON_CREATE_GROUP'"></span>
             </a>
         </div>
     </div>
@@ -20,7 +20,7 @@
                         <div class="input-search clearfix margin-bottom-20">
                             <form name="form" ng-submit="search()">
                                 <i class="input-search-icon fa fa-search" aria-hidden="true"></i>
-                                <input type="text" class="form-control" name="query" placeholder="{{'SEARCH_GROUPS' | translate}}" ng-model="query.query" maxlength="256">
+                                <input type="text" class="form-control" name="query" placeholder-transl="'SEARCH_GROUPS'" ng-model="query.query" maxlength="256">
                             </form>
                         </div>
                         <div class="table-responsive">
@@ -28,7 +28,7 @@
                                 <thead>
                                     <tr>
                                         <th class="width-50">#</th>
-                                        <th ng-bind="'GROUP' | translate" sort-by="name"></th>
+                                        <th ng-bind-transl="'GROUP'" sort-by="name"></th>
                                         <th class="width-50"></th>
                                     </tr>
                                 </thead>
@@ -46,7 +46,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="text-center" ng-if="groups.length === 0" ng-bind="'NO_RESULTS' | translate"></div>
+                            <div class="text-center" ng-if="groups.length === 0" ng-bind-transl="'NO_RESULTS'"></div>
                         </div>
                         <nav class="clearfix">
                             <pagesize></pagesize>

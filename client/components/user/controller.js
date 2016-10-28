@@ -2,8 +2,8 @@
 
 angular.module(window.APP.modules.user)
 
-.controller('users', ['$scope', '$state', '$stateParams', '$filter', 'alertify', 'userAPI',
-    function($scope, $state, $stateParams, $filter, alertify, userAPI) {
+.controller('users', ['$scope', '$state', '$stateParams', 'translate', 'alertify', 'userAPI',
+    function($scope, $state, $stateParams, translate, alertify, userAPI) {
         $scope.query = {
             query: undefined,
             sort: 'email',
@@ -27,7 +27,7 @@ angular.module(window.APP.modules.user)
         };
         $scope.delete = function(user) {
             if (user && user.canDelete()) {
-                if (confirm($filter('translate')('CONFIRM_DELETE_X', user.email))) {
+                if (confirm(translate('CONFIRM_DELETE_X', user.email))) {
                     deleteUser(user, function(user) {
                         $scope.users.forEach(function(obj, i) {
                             if (obj._id === user._id) {
@@ -66,14 +66,14 @@ angular.module(window.APP.modules.user)
                 if (cb) {
                     cb(user);
                 }
-                alertify.success($filter('translate')('X_HAS_BEEN_DELETED', user.email));
+                alertify.success(translate('X_HAS_BEEN_DELETED', user.email));
             });
         }
     }
 ])
 
-.controller('userDetails', ['$scope', '$state', '$stateParams', '$modal', '$filter', 'alertify', 'userAPI', 'groupAPI',
-    function($scope, $state, $stateParams, $modal, $filter, alertify, userAPI, groupAPI) {
+.controller('userDetails', ['$scope', '$state', '$stateParams', '$modal', 'translate', 'alertify', 'userAPI', 'groupAPI',
+    function($scope, $state, $stateParams, $modal, translate, alertify, userAPI, groupAPI) {
         if ($state.current.name === 'userCreate') {
             $scope.state = 'create';
             $scope.user = new userAPI({
@@ -186,7 +186,7 @@ angular.module(window.APP.modules.user)
                                     if (cb) {
                                         cb(res);
                                     }
-                                    alertify.success($filter('translate')('X_HAS_BEEN_UPDATED', $filter('translate')('NEW_PASSWORD')));
+                                    alertify.success(translate('X_HAS_BEEN_UPDATED', translate('NEW_PASSWORD')));
                                 }, function(res) {
                                     if (res.data.validationErrors) {
                                         $scope.validationErrors = res.data.validationErrors;
@@ -200,7 +200,7 @@ angular.module(window.APP.modules.user)
         };
         $scope.delete = function() {
             if ($scope.user.canDelete()) {
-                if (confirm($filter('translate')('CONFIRM_DELETE_X', $scope.user.email))) {
+                if (confirm(translate('CONFIRM_DELETE_X', $scope.user.email))) {
                     deleteUser($scope.user, function(user) {
                         $scope.form.$setPristine();
                         $state.go('users');
@@ -223,7 +223,7 @@ angular.module(window.APP.modules.user)
                 if (cb) {
                     cb(user);
                 }
-                alertify.success($filter('translate')('X_HAS_BEEN_CREATED', user.email));
+                alertify.success(translate('X_HAS_BEEN_CREATED', user.email));
             }, function(res) {
                 if (res.data.validationErrors) {
                     $scope.validationErrors = res.data.validationErrors;
@@ -235,7 +235,7 @@ angular.module(window.APP.modules.user)
                 if (cb) {
                     cb(user);
                 }
-                alertify.success($filter('translate')('X_HAS_BEEN_UPDATED', user.email));
+                alertify.success(translate('X_HAS_BEEN_UPDATED', user.email));
             }, function(res) {
                 if (res.data.validationErrors) {
                     $scope.validationErrors = res.data.validationErrors;
@@ -247,7 +247,7 @@ angular.module(window.APP.modules.user)
                 if (cb) {
                     cb(user);
                 }
-                alertify.success($filter('translate')('X_HAS_BEEN_DELETED', user.email));
+                alertify.success(translate('X_HAS_BEEN_DELETED', user.email));
             });
         }
         function getGroups(query, cb) {
@@ -271,7 +271,7 @@ angular.module(window.APP.modules.user)
                 if (cb) {
                     cb(user);
                 }
-                alertify.success($filter('translate')('X_HAS_BEEN_UPDATED', user.email));
+                alertify.success(translate('X_HAS_BEEN_UPDATED', user.email));
             }, function(res) {
                 if (res.data.validationErrors) {
                     $scope.validationErrors = res.data.validationErrors;

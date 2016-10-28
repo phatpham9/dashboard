@@ -2,8 +2,8 @@
 
 angular.module(window.APP.modules.main)
 
-.factory('httpResponseError', ['$rootScope', '$q', '$injector', '$filter', 'alertify',
-    function($rootScope, $q, $injector, $filter, alertify) {
+.factory('httpResponseError', ['$rootScope', '$q', '$injector', 'translate', 'alertify',
+    function($rootScope, $q, $injector, translate, alertify) {
         return {
             responseError: function(res) {
                 var $state = $injector.get('$state');
@@ -12,10 +12,10 @@ angular.module(window.APP.modules.main)
                         if (res.data.validationErrors) {
                             var keys = Object.keys(res.data.validationErrors);
                             keys.forEach(function(key) {
-                                res.data.validationErrors[key] = $filter('translate')(res.data.validationErrors[key]);
+                                res.data.validationErrors[key] = translate(res.data.validationErrors[key]);
                             });
                         } else if (res.data.message) {
-                            alertify.error($filter('translate')(res.data.message));
+                            alertify.error(translate(res.data.message));
                         }
                         break;
                     case 401:
@@ -27,7 +27,7 @@ angular.module(window.APP.modules.main)
                     case 404:
                     case 500:
                         if (res.data.message) {
-                            alertify.error($filter('translate')(res.data.message));
+                            alertify.error(translate(res.data.message));
                         }
                         break;
                 }

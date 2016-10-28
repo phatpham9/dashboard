@@ -2,8 +2,8 @@
 
 angular.module(window.APP.modules.auth)
 
-.controller('login', ['$scope', '$state', '$stateParams', '$filter', 'authAPI',
-    function($scope, $state, $stateParams, $filter, authAPI) {
+.controller('login', ['$scope', '$state', '$stateParams', 'translate', 'authAPI',
+    function($scope, $state, $stateParams, translate, authAPI) {
         $scope.auth = {
             login: undefined,
             password: undefined
@@ -25,22 +25,19 @@ angular.module(window.APP.modules.auth)
                         $state.go('home');
                     }
                 }, function(res) {
-                    $scope.validationErrors = $filter('translate')('USERNAME_OR_PASSWORD_INCORRECT');
+                    $scope.validationErrors = translate('USERNAME_OR_PASSWORD_INCORRECT');
                 });
             }
         };
     }
 ])
 
-.controller('signup', ['$scope', '$state', '$filter', 'authAPI',
-    function($scope, $state, $filter, authAPI) {
+.controller('signup', ['$scope', '$state', 'translate', 'authAPI',
+    function($scope, $state, translate, authAPI) {
         $scope.auth = {
             email: undefined,
             password: undefined
         };
-        $scope.validationErrors = {};
-        $scope.terms = '<a href="#">' + $filter('translate')('TERMS') + '</a>';
-        $scope.policies = '<a href="#">' + $filter('translate')('POLICIES') + '</a>';
 
         $scope.signup = function(form) {
             if (form.$valid) {
@@ -57,8 +54,8 @@ angular.module(window.APP.modules.auth)
     }
 ])
 
-.controller('forgotPassword', ['$scope', '$state', '$filter', 'authAPI',
-    function($scope, $state, $filter, authAPI) {
+.controller('forgotPassword', ['$scope', '$state', 'authAPI',
+    function($scope, $state, authAPI) {
         $scope.auth = {
             email: null
         };
@@ -79,8 +76,8 @@ angular.module(window.APP.modules.auth)
     }
 ])
 
-.controller('resetPassword', ['$scope', '$state', '$stateParams', '$filter', 'authAPI',
-    function($scope, $state, $stateParams, $filter, authAPI) {
+.controller('resetPassword', ['$scope', '$state', '$stateParams', 'authAPI',
+    function($scope, $state, $stateParams, authAPI) {
         $scope.auth = {
             token: $stateParams.tokenId,
             password: null,
@@ -102,8 +99,8 @@ angular.module(window.APP.modules.auth)
     }
 ])
 
-.controller('pageSuccessful', ['$scope', '$state', '$stateParams', '$filter',
-    function($scope, $state, $stateParams, $filter) {
+.controller('pageSuccessful', ['$scope', '$state', '$stateParams',
+    function($scope, $state, $stateParams) {
         switch($stateParams.page) {
             case 'signup':
                 $scope.title = 'SIGN_UP_SUCCESS_TITLE';

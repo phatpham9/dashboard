@@ -2,8 +2,8 @@
 
 angular.module(window.APP.modules.setting)
 
-.controller('settings', ['$scope', '$state', '$filter', 'alertify', 'settingAPI',
-    function($scope, $state, $filter, alertify, settingAPI) {
+.controller('settings', ['$scope', '$state', 'translate', 'alertify', 'settingAPI',
+    function($scope, $state, translate, alertify, settingAPI) {
         $scope.query = {
             query: undefined,
             sort: 'key',
@@ -55,7 +55,7 @@ angular.module(window.APP.modules.setting)
         };
         $scope.delete = function(setting) {
             if (setting && setting.canDelete()) {
-                if (confirm($filter('translate')('CONFIRM_DELETE_X', setting.key))) {
+                if (confirm(translate('CONFIRM_DELETE_X', setting.key))) {
                     deleteSetting(setting, function(setting) {
                         $scope.settings.forEach(function(obj, index) {
                             if (obj._id === setting._id) {
@@ -94,14 +94,14 @@ angular.module(window.APP.modules.setting)
                 if (cb) {
                     cb(setting);
                 }
-                alertify.success($filter('translate')('X_HAS_BEEN_DELETED', setting.key));
+                alertify.success(translate('X_HAS_BEEN_DELETED', setting.key));
             });
         }
     }
 ])
 
-.controller('settingDetails', ['$scope', '$state', '$stateParams', '$modal', '$filter', 'alertify', 'settingAPI',
-    function($scope, $state, $stateParams, $modal, $filter, alertify, settingAPI) {
+.controller('settingDetails', ['$scope', '$state', '$stateParams', '$modal', '$filter', 'translate', 'alertify', 'settingAPI',
+    function($scope, $state, $stateParams, $modal, $filter, translate, alertify, settingAPI) {
         if ($state.current.name === 'settingCreate') {
             $scope.state = 'create';
             $scope.setting = new settingAPI({
@@ -144,13 +144,13 @@ angular.module(window.APP.modules.setting)
                     try {
                         $scope.setting.value = JSON.parse($scope.tmpValue);
                     } catch(err) {
-                        alertify.alert($filter('translate')('INVALID_DATA_TYPE'));
+                        alertify.alert(translate('INVALID_DATA_TYPE'));
                         return;
                     }
                 } else if ($scope.selectedType === 'number') {
                     var result = Number($scope.tmpValue);
                     if (isNaN(result)) {
-                        alertify.alert($filter('translate')('INVALID_DATA_TYPE'));
+                        alertify.alert(translate('INVALID_DATA_TYPE'));
                         return;
                     }
                     $scope.setting.value = result;
@@ -189,7 +189,7 @@ angular.module(window.APP.modules.setting)
         };
         $scope.delete = function() {
             if ($scope.setting.canDelete()) {
-                if (confirm($filter('translate')('CONFIRM_DELETE_X', $scope.setting.key))) {
+                if (confirm(translate('CONFIRM_DELETE_X', $scope.setting.key))) {
                     deleteSetting($scope.setting, function(setting) {
                         $scope.form.$setPristine();
                         $state.go('settings');
@@ -212,7 +212,7 @@ angular.module(window.APP.modules.setting)
                 if (cb) {
                     cb(setting);
                 }
-                alertify.success($filter('translate')('X_HAS_BEEN_CREATED', setting.key));
+                alertify.success(translate('X_HAS_BEEN_CREATED', setting.key));
             }, function(res) {
                 if (res.data.validationErrors) {
                     $scope.validationErrors = res.data.validationErrors;
@@ -224,7 +224,7 @@ angular.module(window.APP.modules.setting)
                 if (cb) {
                     cb(setting);
                 }
-                alertify.success($filter('translate')('X_HAS_BEEN_UPDATED', setting.key));
+                alertify.success(translate('X_HAS_BEEN_UPDATED', setting.key));
             }, function(res) {
                 if (res.data.validationErrors) {
                     $scope.validationErrors = res.data.validationErrors;
@@ -236,7 +236,7 @@ angular.module(window.APP.modules.setting)
                 if (cb) {
                     cb(setting);
                 }
-                alertify.success($filter('translate')('X_HAS_BEEN_DELETED', setting.key));
+                alertify.success(translate('X_HAS_BEEN_DELETED', setting.key));
             });
         }
     }

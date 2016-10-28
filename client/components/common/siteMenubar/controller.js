@@ -7,8 +7,8 @@ angular.module(window.APP.modules.main)
         restrict: 'E',
         replace: true,
         templateUrl: '/components/common/siteMenubar/view.html',
-        controller: ['$scope', '$state', '$filter', 'siteMenubar', 'settingAPI',
-            function($scope, $state, $filter, siteMenubar, settingAPI) {
+        controller: ['$scope', '$state', 'siteMenubar', 'settingAPI',
+            function($scope, $state, siteMenubar, settingAPI) {
                 $scope.menubar = [];
 
                 // watchers

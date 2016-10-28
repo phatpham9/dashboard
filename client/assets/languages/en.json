@@ -93,6 +93,7 @@
     "CONFIRM_REMOVE_X": "Confirm to remove %s?",
     "CONFIRM_UPDATE_INVENTORY_X": "Confirm to close the order %s and update the inventory?",
 
+    "AND": "and",
     "MADE_WITH": "Made with",
     "BY": "by",
     "FROM": "from",
@@ -179,7 +180,7 @@
     "SIGN_UP_DESC": "Enter email address & password.",
     "HAVE_AN_ACCOUNT_GO_BACK": "Have an account already? Please go to",
     "BUTTON_SIGN_UP": "Sign up",
-    "BY_CLICKING_SIGNUP_YOU_AGREE_OUR_X_AND_X": "By clicking Sign Up, you agree to our %s and %s.",
+    "BY_CLICKING_SIGNUP_YOU_AGREE_OUR": "By clicking Sign Up, you agree to our",
     "SIGN_UP_SUCCESS_TITLE": "Sign up successful!",
     "SIGN_UP_SUCCESS_MESSAGE": "Congratulation! Now you can login.",
 

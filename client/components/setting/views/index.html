@@ -2,12 +2,12 @@
     <div class="page-header">
         <h1 class="page-title">
             <ol class="breadcrumb">
-                <li><span class="icon fa fa-gear fa-fw"></span>{{'SETTINGS' | translate}}</li>
+                <li><span class="icon fa fa-gear fa-fw"></span><span ng-bind-transl="'SETTINGS'"></span></li>
             </ol>
         </h1>
         <div class="page-header-actions">
             <a class="btn btn-primary" ui-sref="settingCreate" ng-if="canCreate()">
-                <i class="icon fa fa-plus fa-fw"></i> <span class="hidden-xs" ng-bind="'BUTTON_CREATE_SETTING' | translate"></span>
+                <i class="icon fa fa-plus fa-fw"></i> <span class="hidden-xs" ng-bind-transl="'BUTTON_CREATE_SETTING'"></span>
             </a>
         </div>
     </div>
@@ -19,7 +19,7 @@
                         <div class="input-search clearfix margin-bottom-20">
                             <form name="form" ng-submit="search()">
                                 <i class="input-search-icon fa fa-search" aria-hidden="true"></i>
-                                <input type="text" class="form-control" name="query" placeholder="{{'SEARCH_SETTINGS' | translate}}" ng-model="query.query" maxlength="256">
+                                <input type="text" class="form-control" name="query" placeholder-transl="'SEARCH_SETTINGS'" ng-model="query.query" maxlength="256">
                             </form>
                         </div>
                         <div class="table-responsive">
@@ -27,9 +27,9 @@
                                 <thead>
                                     <tr>
                                         <th class="width-50">#</th>
-                                        <th class="width-250" ng-bind="'KEY' | translate" sort-by="key"></th>
-                                        <th ng-bind="'VALUE' | translate"></th>
-                                        <th class="width-100" ng-bind="'DATA_TYPE' | translate"></th>
+                                        <th class="width-250" ng-bind-transl="'KEY'" sort-by="key'"></th>
+                                        <th ng-bind-transl="'VALUE'"></th>
+                                        <th class="width-100" ng-bind-transl="'DATA_TYPE'"></th>
                                         <th class="width-50"></th>
                                     </tr>
                                 </thead>
@@ -49,7 +49,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="text-center" ng-if="settings.length === 0" ng-bind="'NO_RESULTS' | translate"></div>
+                            <div class="text-center" ng-if="settings.length === 0" ng-bind-transl="'NO_RESULTS'"></div>
                         </div>
                         <nav class="clearfix">
                             <pagesize></pagesize>

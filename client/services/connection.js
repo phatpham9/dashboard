@@ -2,8 +2,8 @@
 
 angular.module(window.APP.modules.main)
 
-.service('connection', ['$rootScope', '$filter', 'alertify',
-    function($rootScope, $filter, alertify) {
+.service('connection', ['$rootScope', 'translate', 'alertify',
+    function($rootScope, translate, alertify) {
         var self;
         var connection = function() {
             self = this;
@@ -25,7 +25,7 @@ angular.module(window.APP.modules.main)
                 window.addEventListener('offline', function() {
                     self.isOnline = false;
                     $('body').addClass('connection-closed');
-                    self.logInstance = alertify.delay(0).closeLogOnClick(true).error('<h4>' + $filter('translate')('CONNECTION_ERROR_MESSAGE_TITLE') + '</h4><p>' + $filter('translate')('CONNECTION_ERROR_MESSAGE') + '</p>').reset().logPosition('bottom right').maxLogItems(3);
+                    self.logInstance = alertify.delay(0).closeLogOnClick(true).error('<h4>' + translate('CONNECTION_ERROR_MESSAGE_TITLE') + '</h4><p>' + translate('CONNECTION_ERROR_MESSAGE') + '</p>').reset().logPosition('bottom right').maxLogItems(3);
                 });
             }
         };

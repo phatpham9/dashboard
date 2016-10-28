@@ -2,33 +2,36 @@
     <div class="page-header">
         <h1 class="page-title">
             <ol class="breadcrumb">
-                <li><span class="icon fa fa-gear fa-fw"></span><a ui-sref="settings" ng-bind="'SETTINGS' | translate"></a></li>
-                <li><a ui-sref="groups" ng-bind="'GROUPS' | translate"></a></li>
-                <li ng-bind="state === 'create' ? ('CREATE_GROUP' | translate) : group.name"></li>
+                <li><span class="icon fa fa-gear fa-fw"></span><a ui-sref="settings" ng-bind-transl="'SETTINGS'"></a></li>
+                <li><a ui-sref="groups" ng-bind-transl="'GROUPS'"></a></li>
+                <li>
+                    <span ng-bind-transl="'CREATE_GROUP'" ng-if="state === 'create'"></span>
+                    <span ng-bind="group.name" ng-if="state === 'details'"></span>
+                </li>
             </ol>
         </h1>
         <div class="page-header-actions">
             <button type="button" class="btn btn-danger" ng-if="state === 'details' && group.canDelete()" ng-click="delete()">
-                <i class="icon fa fa-trash fa-fw"></i> <span class="hidden-xs" ng-bind="'BUTTON_DELETE' | translate"></span>
+                <i class="icon fa fa-trash fa-fw"></i> <span class="hidden-xs" ng-bind-transl="'BUTTON_DELETE'"></span>
             </button>
             <button type="submit" class="btn btn-primary" ng-disabled="form.$pristine" ng-if="(state === 'create' && group.canCreate()) || group.canEdit()">
-                <i class="icon fa fa-floppy-o fa-fw"></i> <span class="hidden-xs" ng-bind="'BUTTON_SAVE' | translate"></span>
+                <i class="icon fa fa-floppy-o fa-fw"></i> <span class="hidden-xs" ng-bind-transl="'BUTTON_SAVE'"></span>
             </button>
         </div>
     </div>
     <div class="page-content">
         <div class="row margin-bottom-30">
             <div class="col-md-4">
-                <h4 ng-bind="'GROUP_INFO_HEAD' | translate"></h4>
-                <p ng-bind="'GROUP_INFO_DESC' | translate"></p>
+                <h4 ng-bind-transl="'GROUP_INFO_HEAD'"></h4>
+                <p ng-bind-transl="'GROUP_INFO_DESC'"></p>
             </div>
             <div class="col-md-8">
                 <div class="panel">
                     <div class="panel-body">
                         <div class="form-group" ng-class="{'has-error': form.$submitted && (form.name.$invalid || validationErrors.name)}">
-                            <label class="control-label" for="name" ng-bind="'NAME' | translate"></label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="{{'NAME' | translate}}" ng-model="group.name" maxlength="256" autofocus ng-disabled="!group.canEdit()">
-                            <small class="help-block" ng-if="form.$submitted && form.name.$error.required" ng-bind="'VALIDATION_REQUIRED' | translate"></small>
+                            <label class="control-label" for="name" ng-bind-transl="'NAME'"></label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder-transl="'NAME'" ng-model="group.name" maxlength="256" autofocus ng-disabled="!group.canEdit()">
+                            <small class="help-block" ng-if="form.$submitted && form.name.$error.required" ng-bind-transl="'VALIDATION_REQUIRED'"></small>
                             <small class="help-block" ng-if="form.$submitted && validationErrors.name" ng-bind="validationErrors.name"></small>
                         </div>
                     </div>
@@ -38,19 +41,19 @@
         <!-- permissions list -->
         <div class="row" ng-class="{'margin-bottom-30': state === 'details'}">
             <div class="col-md-4">
-                <h4 ng-bind="'GROUP_PERMISSIONS_HEAD' | translate"></h4>
-                <p ng-bind="'GROUP_PERMISSIONS_DESC' | translate"></p>
+                <h4 ng-bind-transl="'GROUP_PERMISSIONS_HEAD'"></h4>
+                <p ng-bind-transl="'GROUP_PERMISSIONS_DESC'"></p>
             </div>
             <div class="col-md-8">
                 <div class="panel">
                     <div class="panel-body">
                         <div class="form-group" ng-repeat="item in permissions track by $index">
-                            <label class="control-label" ng-bind="item.resource | translate"></label>
+                            <label class="control-label" ng-bind-transl="item.resource"></label>
                             <ul class="list-unstyled list-inline">
                                 <li ng-repeat="permission in item.permissions track by $index">
                                     <div class="checkbox-custom checkbox-primary">
                                         <input type="checkbox" id="{{item.resource + permission}}" checklist-model="group.permissions[item.resource]" checklist-value="permission" ng-disabled="!group.canEdit()">
-                                        <label for="{{item.resource + permission}}" ng-bind="permission | translate"></label>
+                                        <label for="{{item.resource + permission}}" ng-bind="permission"></label>
                                     </div>
                                 </li>
                             </ul>
@@ -62,8 +65,8 @@
         <!-- users list -->
         <div class="row" ng-if="state === 'details'">
             <div class="col-md-4">
-                <h4 ng-bind="'GROUP_USERS_HEAD' | translate"></h4>
-                <p ng-bind="'GROUP_USERS_DESC' | translate"></p>
+                <h4 ng-bind-transl="'GROUP_USERS_HEAD'"></h4>
+                <p ng-bind-transl="'GROUP_USERS_DESC'"></p>
             </div>
             <div class="col-md-8">
                 <div class="panel">
@@ -73,7 +76,7 @@
                                 <thead>
                                     <tr>
                                         <th class="width-50">#</th>
-                                        <th ng-bind="'USER' | translate" sort-by="email"></th>
+                                        <th ng-bind-transl="'USER'" sort-by="email"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -85,7 +88,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="text-center" ng-if="users.length === 0" ng-bind="'NO_RESULTS' | translate"></div>
+                            <div class="text-center" ng-if="users.length === 0" ng-bind-transl="'NO_RESULTS'"></div>
                         </div>
                     </div>
                 </div>
