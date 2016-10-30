@@ -11,7 +11,6 @@ angular.module(window.APP.modules.main)
             },
             link: function(scope, elem, attrs) {
             	var array = scope.str.split(':');
-                console.log(array)
                 var texts = [];
             	if (array[1]) {
 	            	try {
