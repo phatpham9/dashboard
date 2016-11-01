@@ -42,18 +42,18 @@ var jsFilesToInject = {
         'assets/scripts/ocLazyLoad.js',
         'assets/scripts/**/*.js',
         'assets/scripts/site.js',
-        // app
-        'app.js',
-        // routes
-        'components/**/route.js',
-        // common components
-        'components/common/**/*.js',
-        // filters
-        'filters/*.js',
+        // app module & config
+        'app.module.js',
+        'app.config.js',
+        // modules & routes
+        '!(apis|assets|components|services)/*.module.js',
+        '!(apis|assets|components|services)/*.routes.js',
         // services
-        'services/*.js',
-        // apis
-        'apis/setting.js'
+        'services/*.service.js',
+        // service apis
+        'apis/settingAPI.service.js',
+        // components
+        'components/**/*.directive.js'
     ],
     prod: [
         'assets/scripts/**/*.js'

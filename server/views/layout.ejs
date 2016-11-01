@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js css-menubar" lang="en" ng-app="<%= app.modules.main %>" ng-strict-di>
+<html class="no-js css-menubar" lang="en" ng-app="<%= app.modules.main %>"<% if (!isDev) { %> ng-strict-di<% } %>>
 
 <head>
     <meta charset="utf-8">
@@ -32,16 +32,16 @@
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <!-- Header -->
-    <site-navbar></site-navbar>
+    <site-navbar ng-if="USER.isLoggedin()"></site-navbar>
     <!-- End Header -->
     <!-- Site Menubar -->
-    <site-menubar></site-menubar>
+    <site-menubar ng-if="USER.isLoggedin()"></site-menubar>
     <!-- End Site Menubar -->
     <!-- Page -->
     <div class="page" ui-view></div>
     <!-- End Page -->
     <!-- Footer -->
-    <site-footer></site-footer>
+    <site-footer ng-if="USER.isLoggedin()"></site-footer>
     <!-- End footer -->
     <script type="text/javascript">
         window.APP = <%- JSON.stringify(app) %>;

@@ -1,0 +1,29 @@
+﻿<div class="page-content">
+    <div class="page-auth-main">
+        <auth-page-header heading-text="'LOGIN'" sub-text="'LOGIN_DESC'"></auth-page-header>
+
+        <!-- login form -->
+        <form name="form" novalidate ng-submit="login(form)">
+            <div class="form-group" ng-class="{'has-error': form.$submitted && (form.login.$invalid || validationErrors)}">
+                <label class="sr-only" for="inputLogin" ng-bind-transl="'LOGIN_USERNAME'"></label>
+                <input type="email" class="form-control" id="inputLogin" name="login" placeholder-transl="'LOGIN_USERNAME'" autofocus ng-model="auth.login" required maxlength="256">
+                <small class="help-block" ng-if="form.$submitted && form.login.$error.required" ng-bind-transl="'VALIDATION_REQUIRED'"></small>
+                <small class="help-block" ng-if="form.$submitted && form.login.$error.email" ng-bind-transl="'VALIDATION_EMAIL'"></small>
+            </div>
+            <div class="form-group" ng-class="{'has-error': form.$submitted && (form.password.$invalid || validationErrors)}">
+                <label class="sr-only" for="inputPassword" ng-bind-transl="'PASSWORD'"></label>
+                <input type="password" class="form-control" id="inputPassword" name="password" placeholder-transl="'PASSWORD'" ng-model="auth.password" required maxlength="256">
+                <small class="help-block" ng-if="form.$submitted && form.password.$error.required" ng-bind-transl="'VALIDATION_REQUIRED'"></small>
+                <small class="help-block" ng-if="form.$submitted && validationErrors" ng-bind="validationErrors"></small>
+            </div>
+            <div>
+                <a ui-sref="forgot-password" ng-bind-transl="'FORGOT_PASSWORD_QUESTION'"></a>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" ng-bind-transl="'BUTTON_LOGIN'"></button>
+        </form>
+        <p><span ng-bind-transl="'NEED_AN_ACCOUNT_QUESTION'"></span> <a ui-sref="signup" ng-bind-transl="'BUTTON_SIGN_UP'"></a></p>
+        <!-- end login form -->
+
+        <auth-page-footer></auth-page-footer>
+    </div>
+</div>

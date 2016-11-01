@@ -1,0 +1,65 @@
+<div class="page-wrapper">
+    <div class="page-header">
+        <h1 class="page-title">
+            <ol class="breadcrumb">
+                <li><span class="icon fa fa-gear fa-fw"></span><a ui-sref="settings" ng-bind-transl="'SETTINGS'"></a></li>
+                <li ng-bind-transl="'USERS'"></li>
+            </ol>
+        </h1>
+        <div class="page-header-actions">
+            <a class="btn btn-primary" ui-sref="userCreate" ng-if="canCreate()">
+                <i class="icon fa fa-plus fa-fw"></i> <span class="hidden-xs" ng-bind-transl="'BUTTON_CREATE_USER'"></span>
+            </a>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="panel">
+            <div class="panel-body container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-search clearfix margin-bottom-20">
+                            <form name="form" ng-submit="search()">
+                                <i class="input-search-icon fa fa-search" aria-hidden="true"></i>
+                                <input type="text" class="form-control" name="query" placeholder-transl="'SEARCH_USERS'" ng-model="query.query" maxlength="256">
+                            </form>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table" sortable-table sort-action="search" ng-model="query.sort">
+                                <thead>
+                                    <tr>
+                                        <th class="width-50">#</th>
+                                        <th ng-bind-transl="'USER'" sort-by="email"></th>
+                                        <th class="width-150" ng-bind-transl="'GROUP'" sort-by="group"></th>
+                                        <th class="width-50"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="user in users track by user._id">
+                                        <td ng-bind="$index + (query.limit * (query.page - 1)) + 1"></td>
+                                        <td>
+                                            <a ui-sref="userDetails({userId: user._id})" ng-bind="user.email"></a>
+                                        </td>
+                                        <td>
+                                            <a ui-sref="groupDetails({groupId: user.group._id})" ng-bind="user.group.name" ng-if="user.group"></a>
+                                            <span ng-if="!user.group">—</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <button type="button" class="btn btn-xs btn-danger" ng-if="user.canDelete()" ng-click="delete(user)">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center" ng-if="users.length === 0" ng-bind-transl="'NO_RESULTS'"></div>
+                        </div>
+                        <nav class="clearfix">
+                            <pagesize></pagesize>
+                            <pagination class="pull-right margin-0" total-items="count.users" ng-model="query.page" items-per-page="query.limit" max-size="5" num-pages="numPages" direction-links="false" rotate="false" ng-change="search()"></pagination>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
