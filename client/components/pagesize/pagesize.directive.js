@@ -2,11 +2,14 @@
 
 angular
 	.module(window.APP.modules.main)
-	.directive('pagesize', function() {
-	    return {
-	        restrict: 'E',
-	        replace: true,
-	        scope: true,
-	        templateUrl: '/components/pagesize/pagesize.html'
-	    };
-	});
+	.directive('pagesize', pagesize);
+
+pagesize.$inject = [];
+function pagesize() {
+    return {
+        restrict: 'E',
+        replace: true,
+        scope: true,
+        templateUrl: '/components/pagesize/pagesize.html'
+    };
+}
