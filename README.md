@@ -1,5 +1,11 @@
 # dashboard
 
+[![Build Status](https://travis-ci.org/phatpham9/dashboard.svg?branch=master)](https://travis-ci.org/phatpham9/dashboard)
+[![Dependencies Status](https://david-dm.org/phatpham9/dashboard.svg)](https://github.com/phatpham9/dashboard)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/phatpham9/dashboard/raw/master/LICENSE)
+[![Paypal Donate](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.me/phatpham9)
+[![Fork](https://img.shields.io/github/forks/phatpham9/dashboard.svg?style=social&label=Fork&maxAge=2592000)](https://github.com/phatpham9/dashboard#fork-destination-box)
+
 Dashboard app based on AngularJS, Express and MongoDB
 
 ## Getting Started
