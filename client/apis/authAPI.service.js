@@ -6,7 +6,7 @@ angular
 
 authAPI.$inject = ['$resource'];
 function authAPI($resource) {
-    return $resource('/api/:action/:data', null, {
+    return $resource('/api/:action/:data', {}, {
         login: {
             method: 'POST',
             params: {

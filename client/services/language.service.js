@@ -20,7 +20,7 @@ function language(APP, $rootScope, $http) {
 	
 	// functions
 	function init() {
-		var lang = sessionStorage[storageKey] ? JSON.parse(sessionStorage[storageKey]) : null;
+		var lang = sessionStorage[storageKey] ? JSON.parse(sessionStorage[storageKey]) : undefined;
 		if (lang) {
 			self.switch(lang.locale);
 		} else {

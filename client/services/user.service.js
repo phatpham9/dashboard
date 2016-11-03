@@ -4,8 +4,8 @@ angular
     .module(window.APP.modules.main)
     .service('user', user);
 
-user.$inject = ['APP', '$rootScope', '$cookieStore'];
-function user(APP, $rootScope, $cookieStore) {
+user.$inject = ['APP', '$cookieStore'];
+function user(APP, $cookieStore) {
     var self;
     var service = function() {
         self = this;
