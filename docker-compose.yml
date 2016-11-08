@@ -1,0 +1,11 @@
+version: "2"
+services:
+  mongo:
+    image: mongo
+  web:
+    image: phatpham9/dashboard:latest
+    command: node server/app.js
+    ports:
+      - "127.0.0.1:9000:9000"
+    depends_on:
+      - mongo
