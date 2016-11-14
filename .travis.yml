@@ -7,5 +7,9 @@ node_js:
   - 0.12
   - 0.10
 
-before_install:
+script:
   - npm install -g bower grunt-cli
+  - npm install
+  - bower install --allow-root
+  - npm run build:prod
+  - node server/app.js
