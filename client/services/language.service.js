@@ -4,36 +4,35 @@ angular
 	.module(window.APP.modules.main)
 	.service('language', language);
 
-language.$inject = ['APP', '$rootScope', '$http'];
-function language(APP, $rootScope, $http) {
+language.$inject = ['APP', '$http'];
+function language(APP, $http) {
 	var storageKey = APP.name + '_LANG';
-	var self;
-	var service = function() {
-		self = this;
-		self.init();
+	var service = {
+		locale: undefined,
+		source: undefined,
+		init: init,
+		switch: switchFunc
 	};
-
-	service.prototype.init = init;
-	service.prototype.switch = switchLanguage;
 	
 	return service;
 	
 	// functions
 	function init() {
 		var lang = sessionStorage[storageKey] ? JSON.parse(sessionStorage[storageKey]) : undefined;
-		if (lang) {
-			self.switch(lang.locale);
+		if (lang && lang.locale && lang.source) {
+			service.locale = lang.locale;
+			service.source = lang.source;
 		} else {
-			self.switch(APP.language);
+			service.switch(APP.language);
 		}
 	}
-	function switchLanguage(locale, reload) {
+	function switchFunc(locale, reload) {
 		if (locale) {
-			self.locale = locale;
-            $http.get('/assets/languages/' + self.locale + '.json')
+			service.locale = locale;
+            $http.get('/assets/languages/' + service.locale + '.json')
             .then(function(res) {
-            	self.source = res.data;
-            	sessionStorage[storageKey] = JSON.stringify(self);
+            	service.source = res.data;
+            	sessionStorage[storageKey] = JSON.stringify(service);
             	if (reload) {
             		location.reload();
             	}

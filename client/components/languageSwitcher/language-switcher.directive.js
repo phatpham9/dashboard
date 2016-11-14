@@ -4,8 +4,8 @@ angular
     .module(window.APP.modules.main)
     .directive('languageSwitcher', languageSwitcher);
 
-languageSwitcher.$inject = [];
-function languageSwitcher() {
+languageSwitcher.$inject = ['language'];
+function languageSwitcher(language) {
     return {
         restrict: 'E',
         templateUrl: '/components/languageSwitcher/language-switcher.html',
@@ -13,6 +13,8 @@ function languageSwitcher() {
     };
 
     function linkFunc(scope) {
+        scope.locale = language.locale;
+        scope.switch = language.switch;
         scope.languages = [{
             key: 'en',
             name: 'English',

@@ -4,8 +4,8 @@ angular
     .module(window.APP.modules.main)
     .service('translate', translate);
 
-translate.$inject = ['$rootScope'];
-function translate($rootScope) {
+translate.$inject = ['language'];
+function translate(language) {
     return service;
 
     // functions
@@ -14,7 +14,7 @@ function translate($rootScope) {
             key = key.replace(/( |-)/g, '_').toUpperCase();
 
             if (texts) {
-                var result = $rootScope.LANGUAGE.source[key];
+                var result = language.source[key];
                 if (Array.isArray(texts)) {
                     texts.forEach(function(text) {
                         result = result.replace(/%s/, text);
@@ -24,7 +24,7 @@ function translate($rootScope) {
                 }
                 return result;
             } else {
-                return $rootScope.LANGUAGE && $rootScope.LANGUAGE.source ? ($rootScope.LANGUAGE.source[key] || key) : key;
+                return language.source ? (language.source[key] || key) : key;
             }
         } else {
             return '';
