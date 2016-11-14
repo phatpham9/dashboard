@@ -4,48 +4,43 @@ angular
     .module(window.APP.modules.main)
     .service('setting', setting);
 
-setting.$inject = ['APP', '$rootScope'];
-function setting(APP, $rootScope) {
+setting.$inject = ['APP'];
+function setting(APP) {
     var storageKey = APP.name + '_SETTING';
-    var self;
-    var setting = function() {
-        self = this;
-        self.init();
+    var service = {
+        init: init,
+        set: set,
+        reset: reset
     };
 
-    setting.prototype.init = init;
-    setting.prototype.set = set;
-    setting.prototype.reset = reset;
-
-    return setting;
+    return service;
 
     // functions
     function init() {
         if (localStorage[storageKey]) {
             var settings = JSON.parse(localStorage[storageKey]);
             Object.keys(settings).forEach(function(key) {
-                self[key] = settings[key];
+                service[key] = settings[key];
             });
         } else {
-            self.reset();
+            service.reset();
         }
     };
     function set(settings) {
         Object.keys(settings).forEach(function(key) {
-            self[key] = settings[key];
+            service[key] = settings[key];
         });
-        localStorage[storageKey] = JSON.stringify(self);
+        localStorage[storageKey] = JSON.stringify(service);
     }
     function reset() {
         // delete all current settings
-        Object.keys(self).forEach(function(key) {
-            delete self[key];
+        Object.keys(service).forEach(function(key) {
+            delete service[key];
         });
         // set default settings
         if (APP.defaultSettings) {
-            self.set(APP.defaultSettings);
-        } else {
-            localStorage[storageKey] = JSON.stringify(self);
+            service.set(APP.defaultSettings);
         }
+        localStorage[storageKey] = JSON.stringify(service);
     }
 }
