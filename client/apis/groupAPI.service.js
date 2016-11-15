@@ -4,8 +4,8 @@ angular
     .module(window.APP.modules.main)
     .service('groupAPI', groupAPI);
 
-groupAPI.$inject = ['$rootScope', '$resource', 'user'];
-function groupAPI($rootScope, $resource, user) {
+groupAPI.$inject = ['$resource', 'user', 'auth'];
+function groupAPI($resource, user, auth) {
     var api = init();
     
     api.canCreate = canCreate;
@@ -37,7 +37,7 @@ function groupAPI($rootScope, $resource, user) {
     }
     function canCreate() {
         // check permissions
-        if (!$rootScope.AUTH.isAllowed({
+        if (!auth.isAllowed({
             allows: {
                 group: ['post']
             }
@@ -52,7 +52,7 @@ function groupAPI($rootScope, $resource, user) {
             return false;
         }
         // check permissions
-        if (!$rootScope.AUTH.isAllowed({
+        if (!auth.isAllowed({
             allows: {
                 group: ['put']
             }
@@ -71,7 +71,7 @@ function groupAPI($rootScope, $resource, user) {
             return false;
         }
         // check permissions
-        if (!$rootScope.AUTH.isAllowed({
+        if (!auth.isAllowed({
             allows: {
                 group: ['delete']
             }

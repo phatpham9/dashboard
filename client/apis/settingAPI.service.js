@@ -4,8 +4,8 @@ angular
     .module(window.APP.modules.main)
     .service('settingAPI', settingAPI);
 
-settingAPI.$inject = ['$rootScope', '$resource'];
-function settingAPI($rootScope, $resource) {
+settingAPI.$inject = ['$resource', 'auth'];
+function settingAPI($resource, auth) {
     var api = init();
 
     api.canCreate = canCreate;
@@ -33,7 +33,7 @@ function settingAPI($rootScope, $resource) {
     }
     function canCreate() {
         // check permissions
-        if (!$rootScope.AUTH.isAllowed({
+        if (!auth.isAllowed({
             allows: {
                 setting: ['post']
             }
@@ -48,7 +48,7 @@ function settingAPI($rootScope, $resource) {
             return false;
         }
         // check permissions
-        if (!$rootScope.AUTH.isAllowed({
+        if (!auth.isAllowed({
             allows: {
                 setting: ['put']
             }
@@ -63,7 +63,7 @@ function settingAPI($rootScope, $resource) {
             return false;
         }
         // check permissions
-        if (!$rootScope.AUTH.isAllowed({
+        if (!auth.isAllowed({
             allows: {
                 setting: ['delete']
             }

@@ -4,8 +4,8 @@ angular
     .module(window.APP.modules.main)
     .service('progressbar', progressbar);
 
-progressbar.$inject = ['$rootScope', 'ngProgressFactory'];
-function progressbar($rootScope, ngProgressFactory) {
+progressbar.$inject = ['$rootScope', 'ngProgressFactory', 'auth'];
+function progressbar($rootScope, ngProgressFactory, auth) {
     var progressbar = ngProgressFactory.createInstance();
     var service = {
         init: init,
@@ -18,7 +18,7 @@ function progressbar($rootScope, ngProgressFactory) {
     // functions
     function init() {
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-            if ($rootScope.AUTH.isAllowed(toState.auth, true)) {
+            if (auth.isAllowed(toState.auth, true)) {
                 service.start();
             } else {
                 return event.preventDefault();

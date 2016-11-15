@@ -8,6 +8,7 @@ languageSwitcher.$inject = ['language'];
 function languageSwitcher(language) {
     return {
         restrict: 'E',
+        scope: true,
         templateUrl: '/components/languageSwitcher/language-switcher.html',
         link: linkFunc
     };

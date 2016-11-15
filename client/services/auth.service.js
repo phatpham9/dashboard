@@ -6,14 +6,10 @@ angular
 
 auth.$inject = ['$rootScope', '$state', 'user'];
 function auth($rootScope, $state, user) {
-    var self;
-    var service = function() {
-        self = this;
-        self.init();
+    var service = {
+        init: init,
+        isAllowed: isAllowed
     };
-
-    service.prototype.init = init;
-    service.prototype.isAllowed = isAllowed;
 
     return service;
 

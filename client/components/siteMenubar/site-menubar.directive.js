@@ -13,11 +13,12 @@ function siteMenubar() {
         controller: controllerFunc
     };
 
-    controllerFunc.$inject(['$scope', '$state', 'siteMenubar', 'settingAPI', 'user']);
-    function controllerFunc($scope, $state, siteMenubar, settingAPI, user) {
+    controllerFunc.$inject(['$scope', '$state', 'siteMenubar', 'settingAPI', 'user', 'auth']);
+    function controllerFunc($scope, $state, siteMenubar, settingAPI, user, auth) {
         $scope.menubar = [];
         $scope.activeItem = activeItem;
         $scope.isLoggedin = user.isLoggedin;
+        $scope.isAllowed = auth.isAllowed;
         $scope.$on('userLoggedin', init);
         $scope.$on('userLoggedout', onLogout);
         init();
