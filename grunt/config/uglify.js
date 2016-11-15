@@ -8,7 +8,6 @@
 module.exports = function(grunt) {
     grunt.config.set('uglify', {
         options: {
-            expression: true,
             preserveComments: false
         },
         public: {
