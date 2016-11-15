@@ -4,12 +4,11 @@ node_js:
   - 7
   - 6
   - 4
-  - 0.12
-  - 0.10
 
 script:
   - npm install -g bower grunt-cli
-  - npm install
   - bower install --allow-root
-  - npm run build:prod
+  - npm install --production
+  - npm install --only=dev
+  - grunt build:prod
   - node server/app.js
