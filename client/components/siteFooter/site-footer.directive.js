@@ -11,11 +11,11 @@ function siteFooter() {
         replace: true,
         scope: true,
         templateUrl: '/components/siteFooter/site-footer.html',
-        controller: controllerFunc
+        controller: siteFooterControllerFunc
     };
+}
 
-    controllerFunc.$inject(['$scope', 'user']);
-    function controllerFunc($scope, user) {
-        $scope.isLoggedin = user.isLoggedin;
-    }
+siteFooterControllerFunc.$inject = ['$scope', 'user'];
+function siteFooterControllerFunc($scope, user) {
+    $scope.isLoggedin = user.isLoggedin;
 }

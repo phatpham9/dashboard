@@ -11,11 +11,11 @@ function siteNavbar() {
         replace: true,
         scope: true,
         templateUrl: '/components/siteNavbar/site-navbar.html',
-        controller: controllerFunc
+        controller: siteNavbarControllerFunc
     };
+}
 
-    controllerFunc.$inject(['$scope', 'user']);
-    function controllerFunc($scope, user) {
-        $scope.isLoggedin = user.isLoggedin;
-    }
+siteNavbarControllerFunc.$inject = ['$scope', 'user'];
+function siteNavbarControllerFunc($scope, user) {
+    $scope.isLoggedin = user.isLoggedin;
 }
