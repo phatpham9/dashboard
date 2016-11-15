@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var async = require('async');
 var _ = require('lodash');
 
-exports.load = function() {
+exports.load = function(cb) {
 	var defaultData = includeAll({
 	    dirname: path.join(__dirname, '../data/default'),
 	    filter: /(.+)\.js$/
@@ -61,9 +61,9 @@ exports.load = function() {
 	}, function(err) {
 		if (err) {
 			console.error('--> Default data failed to load', err);
-			return;
+			return cb(err);
 		}
-
 		console.log('--> Default data loaded');
+		cb();
 	});
 };

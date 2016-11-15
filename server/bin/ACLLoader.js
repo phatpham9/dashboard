@@ -6,49 +6,50 @@ var Group = mongoose.model('Group');
 var User = mongoose.model('User');
 var async = require('async');
 
-exports.load = function() {
+exports.load = function(cb1) {
 	async.parallel({
         // load groups list
-        groups: function(cb) {
+        groups: function(cb2) {
             Group.find({
                 isDeleted: false
             })
             .then(function(groups) {
-                cb(null, groups);
+                cb2(null, groups);
             })
-            .catch(cb);
+            .catch(cb2);
         },
         // load users list
-        users: function(cb) {
+        users: function(cb2) {
             User.find({
                 isDeleted: false
             })
             .populate('group')
             .then(function(users) {
-                cb(null, users);
+                cb2(null, users);
             })
-            .catch(cb);
+            .catch(cb2);
         }
     }, function(err, result) {
         if (err) {
             console.error('--> Groups/Users failed to load', err);
-            return;
+            return cb1(err);
         }
         async.parallel([
             // load groups to acl
-            function(cb) {
-                ACL.addGroups(result.groups, cb);
+            function(cb2) {
+                ACL.addGroups(result.groups, cb2);
             },
             // load users to acl
-            function(cb) {
-                ACL.addUsers(result.users, cb)
+            function(cb2) {
+                ACL.addUsers(result.users, cb2)
             }
         ], function(err) {
             if (err) {
                 console.error('--> ACL failed to load', err);
-                return;
+                return cb1(err);
             }
             console.log('--> ACL loaded');
+            cb1();
         });
     });
 };
