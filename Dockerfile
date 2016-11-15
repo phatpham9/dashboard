@@ -4,15 +4,15 @@ MAINTAINER Phat Pham <phatpham9@gmail.com>
 ADD . /opt/dashboard
 WORKDIR /opt/dashboard
 
-RUN npm install -g bower grunt-cli
-RUN npm install
-RUN bower install --allow-root
-RUN npm run build:prod
+ENV	HOST 0.0.0.0
+ENV	PORT 9000
+ENV DB_NAME dashboard
 
-ENV NODE_ENV production
-ENV HOST 0.0.0.0
-ENV PORT 9000
-ENV DB_HOST mongo
+RUN npm install -g bower grunt-cli \
+	&& bower install --allow-root \
+	&& npm install --production \
+	&& npm install --only=dev \
+	&& grunt build:prod
 
 EXPOSE 9000
 
