@@ -3,8 +3,8 @@
 angular
     .module(window.APP.modules.main)
     .service('userAPI', userAPI);
-userAPI.$inject = ['$rootScope', '$resource'];
-function userAPI($rootScope, $resource) {
+userAPI.$inject = ['$rootScope', '$resource', 'user'];
+function userAPI($rootScope, $resource, user) {
         var api = init();
 
         api.canCreate = canCreate;
@@ -88,7 +88,7 @@ function userAPI($rootScope, $resource) {
                 return false;
             }
             // check this is me
-            if (this.isMe($rootScope.USER)) {
+            if (this.isMe(user)) {
                 return false;
             }
             // check permissions

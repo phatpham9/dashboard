@@ -35,8 +35,8 @@ function userDetailsController($scope, $state, $stateParams, $modal, translate, 
             $scope.state = 'details';
             getUser({
                 _id: $stateParams.userId
-            }, function(user) {
-                $scope.user = user;
+            }, function(_user) {
+                $scope.user = _user;
 
                 getGroups({
                     limit: 0,
@@ -48,8 +48,8 @@ function userDetailsController($scope, $state, $stateParams, $modal, translate, 
             });
         } else {
             $scope.state = 'profile';
-            getProfile(function(user) {
-                $scope.user = user;
+            getProfile(function(_user) {
+                $scope.user = _user;
             });
         }
     }
@@ -57,24 +57,24 @@ function userDetailsController($scope, $state, $stateParams, $modal, translate, 
         if ($scope.form.$valid) {
             if ($scope.state === 'create') {
                 if ($scope.user.canCreate()) {
-                    createUser($scope.user, function(user) {
+                    createUser($scope.user, function(_user) {
                         $scope.form.$setPristine();
-                        $state.go('userDetails', {userId: user._id});
+                        $state.go('userDetails', {userId: _user._id});
                     });
                 }
             } else if ($scope.state === 'details') {
                 if ($scope.user.canEdit()) {
-                    updateUser($scope.user, function(user) {
+                    updateUser($scope.user, function(_user) {
                         $scope.form.$setPristine();
-                        $scope.user = user;
+                        $scope.user = _user;
                     });
                 }
             } else {
-                updateProfile($scope.user, function(user) {
+                updateProfile($scope.user, function(_user) {
                     $scope.form.$setPristine();
-                    $scope.user = user;
+                    $scope.user = _user;
                     // update current logged in user info
-                    $scope.USER.login($scope.user);
+                    user.login($scope.user);
                 });
             }
         }
@@ -82,7 +82,7 @@ function userDetailsController($scope, $state, $stateParams, $modal, translate, 
     function deleteFunc() {
         if ($scope.user.canDelete()) {
             if (confirm(translate('CONFIRM_DELETE_X', $scope.user.email))) {
-                deleteUser($scope.user, function(user) {
+                deleteUser($scope.user, function(_user) {
                     $scope.form.$setPristine();
                     $state.go('users');
                 });
@@ -111,20 +111,20 @@ function userDetailsController($scope, $state, $stateParams, $modal, translate, 
     }
 
     function getUser(query, cb) {
-        userAPI.get(query, function(user) {
+        userAPI.get(query, function(_user) {
             if (cb) {
-                cb(user);
+                cb(_user);
             }
         }, function(res) {
             $state.go('users');
         });
     }
     function createUser(user, cb) {
-        user.$save(function(user) {
+        user.$save(function(_user) {
             if (cb) {
-                cb(user);
+                cb(_user);
             }
-            logger.success(translate('X_HAS_BEEN_CREATED', user.email));
+            logger.success(translate('X_HAS_BEEN_CREATED', _user.email));
         }, function(res) {
             if (res.data.validationErrors) {
                 $scope.validationErrors = res.data.validationErrors;
@@ -132,11 +132,11 @@ function userDetailsController($scope, $state, $stateParams, $modal, translate, 
         });
     }
     function updateUser(user, cb) {
-        user.$update(function(user) {
+        user.$update(function(_user) {
             if (cb) {
-                cb(user);
+                cb(_user);
             }
-            logger.success(translate('X_HAS_BEEN_UPDATED', user.email));
+            logger.success(translate('X_HAS_BEEN_UPDATED', _user.email));
         }, function(res) {
             if (res.data.validationErrors) {
                 $scope.validationErrors = res.data.validationErrors;
@@ -144,35 +144,35 @@ function userDetailsController($scope, $state, $stateParams, $modal, translate, 
         });
     }
     function deleteUser(user, cb) {
-        user.$delete(function(user) {
+        user.$delete(function(_user) {
             if (cb) {
-                cb(user);
+                cb(_user);
             }
-            logger.success(translate('X_HAS_BEEN_DELETED', user.email));
+            logger.success(translate('X_HAS_BEEN_DELETED', _user.email));
         });
     }
     function getGroups(query, cb) {
-        groupAPI.query(query, function(groups) {
+        groupAPI.query(query, function(_groups) {
             if (cb) {
-                cb(groups);
+                cb(_groups);
             }
         });
     }
     function getProfile(cb) {
-        userAPI.getProfile(function(user) {
+        userAPI.getProfile(function(_profile) {
             if (cb) {
-                cb(user);
+                cb(_profile);
             }
         }, function(res) {
             $state.go('home');
         });
     }
-    function updateProfile(user, cb) {
-        userAPI.updateProfile(user, function(user) {
+    function updateProfile(profile, cb) {
+        userAPI.updateProfile(profile, function(_profile) {
             if (cb) {
-                cb(user);
+                cb(_profile);
             }
-            logger.success(translate('X_HAS_BEEN_UPDATED', user.email));
+            logger.success(translate('X_HAS_BEEN_UPDATED', _profile.email));
         }, function(res) {
             if (res.data.validationErrors) {
                 $scope.validationErrors = res.data.validationErrors;

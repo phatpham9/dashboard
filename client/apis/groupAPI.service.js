@@ -4,8 +4,8 @@ angular
     .module(window.APP.modules.main)
     .service('groupAPI', groupAPI);
 
-groupAPI.$inject = ['$rootScope', '$resource'];
-function groupAPI($rootScope, $resource) {
+groupAPI.$inject = ['$rootScope', '$resource', 'user'];
+function groupAPI($rootScope, $resource, user) {
     var api = init();
     
     api.canCreate = canCreate;
@@ -67,7 +67,7 @@ function groupAPI($rootScope, $resource) {
             return false;
         }
         // check this is my group
-        if (this.isEqualTo($rootScope.USER.group)) {
+        if (this.isEqualTo(user.group)) {
             return false;
         }
         // check permissions

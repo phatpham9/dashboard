@@ -4,15 +4,14 @@ angular
 	.module(window.APP.modules.auth)
 	.controller('logout', logoutController);
 
-logoutController.$inject = ['$scope', '$state', 'authAPI'];
-function logoutController($scope, $state, authAPI) {
+logoutController.$inject = ['authAPI', 'user'];
+function logoutController(authAPI, user) {
 	logout();
 
 	// functions
 	function logout() {
         authAPI.logout(function() {
-            $scope.USER.logout();
-            $state.go('login');
+            user.logout();
         });
     }
 }

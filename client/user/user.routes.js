@@ -59,11 +59,11 @@ function userRoutes($stateProvider, $ocLazyLoadProvider) {
                         '/apis/groupAPI.service.js'
                     ]);
                 }],
-                redirect: ['$rootScope', '$state', '$stateParams', '$q', '$timeout',
-                    function($rootScope, $state, $stateParams, $q, $timeout) {
+                redirect: ['$state', '$stateParams', '$q', '$timeout', 'user',
+                    function($state, $stateParams, $q, $timeout, user) {
                         var deferred = $q.defer();
                         $timeout(function() {
-                            if ($rootScope.USER.isMe($stateParams.userId)) {
+                            if (user.isMe($stateParams.userId)) {
                                 $state.go('profile');
                                 deferred.reject();
                             } else {

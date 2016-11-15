@@ -10,6 +10,12 @@ function siteNavbar() {
         restrict: 'E',
         replace: true,
         scope: true,
-        templateUrl: '/components/siteNavbar/site-navbar.html'
+        templateUrl: '/components/siteNavbar/site-navbar.html',
+        controller: controllerFunc
     };
+
+    controllerFunc.$inject(['$scope', 'user']);
+    function controllerFunc($scope, user) {
+        $scope.isLoggedin = user.isLoggedin;
+    }
 }

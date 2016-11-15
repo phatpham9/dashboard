@@ -4,50 +4,47 @@ angular
     .module(window.APP.modules.main)
     .service('user', user);
 
-user.$inject = ['APP', '$cookieStore'];
-function user(APP, $cookieStore) {
-    var self;
-    var service = function() {
-        self = this;
-        self.init();
+user.$inject = ['APP', '$rootScope', '$cookieStore', '$state'];
+function user(APP, $rootScope, $cookieStore, $state) {
+    var service = {
+        init: init,
+        isLoggedin: isLoggedin,
+        login: login,
+        logout: logout,
+        isMe: isMe
     };
-
-    service.prototype.init = init;
-    service.prototype.isLoggedin = isLoggedin;
-    service.prototype.login = login;
-    service.prototype.logout = logout;
-    service.prototype.isMe = isMe;
 
     return service;
 
     // functions
     function init() {
         if ($cookieStore.get(APP.cookieId)) {
-            var _user = $cookieStore.get(APP.cookieId);
-            self._id = _user._id;
-            self.email = _user.email;
-            self.group = _user.group;
-            self.permissions = _user.group ? _user.group.permissions : {};
+            service.login($cookieStore.get(APP.cookieId), true);
         }
     }
     function isLoggedin() {
-        return self._id ? true : false;
+        return service._id ? true : false;
     }
-    function login(_user) {
-        self._id = _user._id;
-        self.email = _user.email;
-        self.group = _user.group;
-        self.permissions = _user.group ? _user.group.permissions : {};
-        $cookieStore.put(APP.cookieId, _user);
+    function login(_user, dontUpdateCookie) {
+        service._id = _user._id;
+        service.email = _user.email;
+        service.group = _user.group;
+        service.permissions = _user.group ? _user.group.permissions : {};
+        if (!dontUpdateCookie) {
+            $cookieStore.put(APP.cookieId, _user);
+        }
+        $rootScope.$emit('userLoggedin');
     }
     function logout() {
-        delete self._id;
-        delete self.email;
-        delete self.group;
-        delete self.permissions;
+        service._id = undefined;
+        service.email = undefined;
+        service.group = undefined;
+        service.permissions = {undefined};
         $cookieStore.remove(APP.cookieId);
+        $rootScope.$emit('userLoggedout');
+        $state.go('login');
     }
     function isMe(userId) {
-        return self._id === userId;
+        return service._id === userId;
     }
 }

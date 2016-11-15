@@ -4,8 +4,8 @@ angular
     .module(window.APP.modules.main)
     .service('auth', auth);
 
-auth.$inject = ['$rootScope', '$state'];
-function auth($rootScope, $state) {
+auth.$inject = ['$rootScope', '$state', 'user'];
+function auth($rootScope, $state, user) {
     var self;
     var service = function() {
         self = this;
@@ -33,13 +33,13 @@ function auth($rootScope, $state) {
             return true;
         }
         // check login
-        if (auth.requiresLogin === true && !$rootScope.USER.isLoggedin()) {
+        if (auth.requiresLogin === true && !user.isLoggedin()) {
             if (routing) {
                 $state.go('login');
             }
             return false;
         }
-        if (auth.requiresLogin === false && $rootScope.USER.isLoggedin()) {
+        if (auth.requiresLogin === false && user.isLoggedin()) {
             if (routing) {
                 $state.go('home');
             }
@@ -53,14 +53,14 @@ function auth($rootScope, $state) {
             for (var i = 0; i < resources.length; i++) {
                 var resource = resources[i];
                 // check if the user has this resource
-                if (!$rootScope.USER.permissions[resource]) {
+                if (!user.permissions[resource]) {
                     resourceAllowed = resourceAllowed || false;
                 } else {
                     var permissionAllowd = false;
                     for (var j = 0; j < auth.allows[resource].length; j++) {
                         var permission = auth.allows[resource][j];
                         // check if the user has this permission
-                        if ($rootScope.USER.permissions[resource].indexOf(permission) === -1) {
+                        if (user.permissions[resource].indexOf(permission) === -1) {
                             permissionAllowd = false;
                             break;
                         } else {

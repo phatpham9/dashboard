@@ -4,8 +4,8 @@ angular
     .module(window.APP.modules.auth)
     .controller('login', loginController);
 
-loginController.$inject = ['$scope', '$state', '$stateParams', 'translate', 'authAPI'];
-function loginController($scope, $state, $stateParams, translate, authAPI) {
+loginController.$inject = ['$scope', '$state', '$stateParams', 'translate', 'authAPI', 'user'];
+function loginController($scope, $state, $stateParams, translate, authAPI, user) {
     $scope.auth = {
         login: undefined,
         password: undefined
@@ -16,8 +16,8 @@ function loginController($scope, $state, $stateParams, translate, authAPI) {
     // public functions
     function login(form) {
         if (form.$valid) {
-            authAPI.login($scope.auth, function(user) {
-                $scope.USER.login(user);
+            authAPI.login($scope.auth, function(_user) {
+                user.login(_user);
                 if ($stateParams.redirectState && $stateParams.redirectState !== 'home') {
                     if ($stateParams.params) {
                         $state.go($stateParams.redirectState, JSON.parse($stateParams.params));

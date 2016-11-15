@@ -10,6 +10,12 @@ function siteFooter() {
         restrict: 'E',
         replace: true,
         scope: true,
-        templateUrl: '/components/siteFooter/site-footer.html'
+        templateUrl: '/components/siteFooter/site-footer.html',
+        controller: controllerFunc
     };
+
+    controllerFunc.$inject(['$scope', 'user']);
+    function controllerFunc($scope, user) {
+        $scope.isLoggedin = user.isLoggedin;
+    }
 }

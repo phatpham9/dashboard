@@ -21,7 +21,6 @@ function appRun($rootScope, language, logger, connection, pageTitle, progressbar
     pageTitle.init();
     progressbar.init();
     setting.init();
-
-    $rootScope.USER = new user();
+    user.init();
     $rootScope.AUTH = new auth();
 }

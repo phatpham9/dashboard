@@ -4,11 +4,10 @@ angular
     .module(window.APP.modules.main)
     .factory('httpResponseError', httpResponseError);
 
-httpResponseError.$inject = ['$rootScope', '$q', '$injector'];
-function httpResponseError($rootScope, $q, $injector) {
+httpResponseError.$inject = ['$q', '$injector'];
+function httpResponseError($q, $injector) {
     return {
         responseError: function(res) {
-            var $state = $injector.get('$state');
             var logger = $injector.get('logger');
             var translate = $injector.get('translate');
             
@@ -24,8 +23,7 @@ function httpResponseError($rootScope, $q, $injector) {
                     break;
                 case 401:
                     if (['/api/login', '/api/signup', '/api/forgotPassword', '/api/resetPassword'].indexOf(res.config.url) === -1) {
-                        $rootScope.USER.logout();
-                        $state.go('login');
+                        $injector.get('user').logout();
                     }
                 case 403:
                 case 404:

@@ -32,16 +32,16 @@
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <!-- Header -->
-    <site-navbar ng-if="USER.isLoggedin()"></site-navbar>
+    <site-navbar></site-navbar>
     <!-- End Header -->
     <!-- Site Menubar -->
-    <site-menubar ng-if="USER.isLoggedin()"></site-menubar>
+    <site-menubar></site-menubar>
     <!-- End Site Menubar -->
     <!-- Page -->
     <div class="page" ui-view></div>
     <!-- End Page -->
     <!-- Footer -->
-    <site-footer ng-if="USER.isLoggedin()"></site-footer>
+    <site-footer></site-footer>
     <!-- End footer -->
     <script type="text/javascript">
         window.APP = <%- JSON.stringify(app) %>;

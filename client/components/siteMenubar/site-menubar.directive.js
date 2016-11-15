@@ -13,25 +13,28 @@ function siteMenubar() {
         controller: controllerFunc
     };
 
-    controllerFunc.$inject(['$scope', '$state', 'siteMenubar', 'settingAPI']);
-    function controllerFunc($scope, $state, siteMenubar, settingAPI) {
+    controllerFunc.$inject(['$scope', '$state', 'siteMenubar', 'settingAPI', 'user']);
+    function controllerFunc($scope, $state, siteMenubar, settingAPI, user) {
         $scope.menubar = [];
-
-        $scope.$watch('USER._id', watchUserId);
         $scope.activeItem = activeItem;
+        $scope.isLoggedin = user.isLoggedin;
+        $scope.$on('userLoggedin', init);
+        $scope.$on('userLoggedout', onLogout);
+        init();
 
         // functions
-        function watchUserId(userId) {
-            if (userId) {
+        function init() {
+            if (user.isLoggedin()) {
                 getMenubar({
                     _id: 'MENUBAR'
                 }, function(menubar) {
                     $scope.menubar = [].concat(menubar.main, menubar.settings);
                     siteMenubar.init();
                 });
-            } else {
-                $scope.menubar = [];
             }
+        }
+        function onLogout() {
+            $scope.menubar = [];
         }
         function activeItem(activeStates) {
             return activeStates && activeStates.indexOf($state.current.name) !== -1;
