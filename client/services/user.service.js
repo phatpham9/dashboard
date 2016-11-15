@@ -39,7 +39,7 @@ function user(APP, $rootScope, $cookieStore, $state) {
         service._id = undefined;
         service.email = undefined;
         service.group = undefined;
-        service.permissions = {undefined};
+        service.permissions = {};
         $cookieStore.remove(APP.cookieId);
         $rootScope.$emit('userLoggedout');
         $state.go('login');
