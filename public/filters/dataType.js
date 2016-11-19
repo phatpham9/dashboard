@@ -1,1 +1,0 @@
-"use strict";angular.module(window.APP.modules.main).filter("dataType",["$rootScope",function(a){return function(a){switch(typeof a){case"object":return"JSON";case"number":return"number";default:return"text"}}}]);

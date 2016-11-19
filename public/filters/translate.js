@@ -1,1 +1,0 @@
-"use strict";angular.module(window.APP.modules.main).filter("translate",["$rootScope",function(a){return function(b,c){if(b){if(b=b.replace(/( |-)/g,"_").toUpperCase(),c){var d=a.LANGUAGE.source[b];return Array.isArray(c)?c.forEach(function(a){d=d.replace(/%s/,a)}):d=d.replace(/%s/g,c),d}return a.LANGUAGE&&a.LANGUAGE.source?a.LANGUAGE.source[b]||b:b}return null}}]);

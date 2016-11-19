@@ -1,1 +1,0 @@
-"use strict";angular.module(window.APP.modules.home,["ui.router","oc.lazyLoad"]).config(["$stateProvider","$ocLazyLoadProvider",function(a,b){a.state("home",{url:"/",templateUrl:"/components/home/views/index.html",resolve:{resources:["$ocLazyLoad",function(a){return a.load(["/components/home/controller.js"])}]},auth:{requiresLogin:!0}})}]);
