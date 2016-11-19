@@ -4,19 +4,21 @@ angular
     .module(window.APP.modules.auth)
     .controller('login', loginController);
 
-loginController.$inject = ['$scope', '$state', '$stateParams', 'translate', 'authAPI', 'user'];
-function loginController($scope, $state, $stateParams, translate, authAPI, user) {
-    $scope.auth = {
+loginController.$inject = ['$state', '$stateParams', 'translate', 'authAPI', 'user'];
+function loginController($state, $stateParams, translate, authAPI, user) {
+    var vm = this;
+    
+    vm.auth = {
         login: undefined,
         password: undefined
     };
-    $scope.validationErrors = undefined;
-    $scope.login = login;
+    vm.validationErrors = undefined;
+    vm.login = login;
 
     // public functions
     function login(form) {
         if (form.$valid) {
-            authAPI.login($scope.auth, function(_user) {
+            authAPI.login(vm.auth, function(_user) {
                 user.login(_user);
                 if ($stateParams.redirectState && $stateParams.redirectState !== 'home') {
                     if ($stateParams.params) {
@@ -28,7 +30,7 @@ function loginController($scope, $state, $stateParams, translate, authAPI, user)
                     $state.go('home');
                 }
             }, function(res) {
-                $scope.validationErrors = translate('USERNAME_OR_PASSWORD_INCORRECT');
+                vm.validationErrors = translate('USERNAME_OR_PASSWORD_INCORRECT');
             });
         }
     };

@@ -19,6 +19,7 @@ function authRoutes($stateProvider, $ocLazyLoadProvider) {
                 }]
             },
             controller: 'login',
+            controllerAs: 'vm',
             auth: {
                 requiresLogin: false
             }
@@ -35,6 +36,7 @@ function authRoutes($stateProvider, $ocLazyLoadProvider) {
                 }]
             },
             controller: 'signup',
+            controllerAs: 'vm',
             auth: {
                 requiresLogin: false
             }
@@ -51,6 +53,7 @@ function authRoutes($stateProvider, $ocLazyLoadProvider) {
                 }]
             },
             controller: 'forgotPassword',
+            controllerAs: 'vm',
             auth: {
                 requiresLogin: false
             }
@@ -66,6 +69,7 @@ function authRoutes($stateProvider, $ocLazyLoadProvider) {
                 }]
             },
             controller: 'pageSuccessful',
+            controllerAs: 'vm',
             auth: {
                 requiresLogin: false
             }
@@ -82,6 +86,7 @@ function authRoutes($stateProvider, $ocLazyLoadProvider) {
                 }]
             },
             controller: 'resetPassword',
+            controllerAs: 'vm',
             auth: {
                 requiresLogin: false
             }
@@ -97,6 +102,7 @@ function authRoutes($stateProvider, $ocLazyLoadProvider) {
                 }]
             },
             controller: 'logout',
+            controllerAs: 'vm',
             auth: {
                 requiresLogin: true
             }

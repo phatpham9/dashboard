@@ -4,23 +4,25 @@ angular
     .module(window.APP.modules.auth)
     .controller('signup', signupController);
 
-signupController.$inject = ['$scope', '$state', 'translate', 'authAPI'];
-function signupController($scope, $state, translate, authAPI) {
-    $scope.auth = {
+signupController.$inject = ['$state', 'translate', 'authAPI'];
+function signupController($state, translate, authAPI) {
+    var vm = this;
+    
+    vm.auth = {
         email: undefined,
         password: undefined
     };
-    $scope.signup = signup;
+    vm.signup = signup;
 
     // functions
     function signup(form) {
         if (form.$valid) {
-            authAPI.signup($scope.auth, function(user) {
-                $scope.validationErrors.email = undefined;
+            authAPI.signup(vm.auth, function(user) {
+                vm.validationErrors.email = undefined;
                 $state.go('page-successful', {page: 'signup'});
             }, function(res) {
                 if (res.data.validationErrors) {
-                    $scope.validationErrors = res.data.validationErrors;
+                    vm.validationErrors = res.data.validationErrors;
                 }
             });
         }

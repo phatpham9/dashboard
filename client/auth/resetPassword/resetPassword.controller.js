@@ -4,24 +4,24 @@ angular
     .module(window.APP.modules.auth)
     .controller('resetPassword', resetPasswordController);
 
-resetPasswordController.$inject = ['$scope', '$state', '$stateParams', 'authAPI'];
-function resetPasswordController($scope, $state, $stateParams, authAPI) {
-    $scope.auth = {
+resetPasswordController.$inject = ['$state', '$stateParams', 'authAPI'];
+function resetPasswordController($state, $stateParams, authAPI) {
+    vm.auth = {
         token: $stateParams.tokenId,
         password: undefined,
         confirmPassword: undefined
     };
-    $scope.validationErrors = {};
-    $scope.resetPassword = resetPassword;
+    vm.validationErrors = {};
+    vm.resetPassword = resetPassword;
 
     // functions
     function resetPassword(form) {
         if (form.$valid) {
-            authAPI.resetPassword($scope.auth, function(data) {
+            authAPI.resetPassword(vm.auth, function(data) {
                 $state.go('page-successful', {page: 'reset-password'});
             }, function(res) {
                 if (res.data.validationErrors) {
-                    $scope.validationErrors = res.data.validationErrors;
+                    vm.validationErrors = res.data.validationErrors;
                 }
             });
         }

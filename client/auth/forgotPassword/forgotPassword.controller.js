@@ -4,23 +4,25 @@ angular
     .module(window.APP.modules.auth)
     .controller('forgotPassword', forgotPasswordController);
 
-forgotPasswordController.$inject = ['$scope', '$state', 'authAPI'];
-function forgotPasswordController($scope, $state, authAPI) {
-    $scope.auth = {
+forgotPasswordController.$inject = ['$state', 'authAPI'];
+function forgotPasswordController($state, authAPI) {
+    var vm = this;
+    
+    vm.auth = {
         email: undefined
     };
-    $scope.validationErrors = {};
-    $scope.forgotPassword = forgotPassword;
+    vm.validationErrors = {};
+    vm.forgotPassword = forgotPassword;
 
     // functions
     function forgotPassword(form) {
         if (form.$valid) {
-            authAPI.forgotPassword($scope.auth, function(res) {
-                $scope.validationErrors.email = undefined;
+            authAPI.forgotPassword(vm.auth, function(res) {
+                vm.validationErrors.email = undefined;
                 $state.go('page-successful', {page: 'forgot-password'});
             }, function(res) {
                 if (res.data.validationErrors) {
-                    $scope.validationErrors = res.data.validationErrors;
+                    vm.validationErrors = res.data.validationErrors;
                 }
             });
         }
