@@ -4,22 +4,25 @@ angular
     .module(window.APP.modules.setting)
     .controller('settings', settingsController);
 
-settingsController.$inject = ['$scope', '$state', 'translate', 'logger', 'settingAPI'];
-function settingsController($scope, $state, translate, logger, settingAPI) {
-    $scope.query = {
+settingsController.$inject = ['$state', 'translate', 'logger', 'settingAPI'];
+function settingsController($state, translate, logger, settingAPI) {
+    var vm = this;
+
+    vm.query = {
         query: undefined,
         sort: 'key',
         page: 1,
         limit: 25
     };
-    $scope.count = {
+    vm.settings = [];
+    vm.count = {
         settings: 0
     };
-    $scope.displayDataType = displayDataType;
-    $scope.displayValue = displayValue;
-    $scope.search = searchSettings;
-    $scope.canCreate = canCreate;
-    $scope.delete = deleteFunc;
+    vm.displayDataType = displayDataType;
+    vm.displayValue = displayValue;
+    vm.search = searchSettings;
+    vm.canCreate = canCreate;
+    vm.delete = deleteFunc;
     searchSettings();
 
     // functions
@@ -58,9 +61,9 @@ function settingsController($scope, $state, translate, logger, settingAPI) {
         if (setting && setting.canDelete()) {
             if (confirm(translate('CONFIRM_DELETE_X', setting.key))) {
                 deleteSetting(setting, function(setting) {
-                    $scope.settings.forEach(function(obj, index) {
+                    vm.settings.forEach(function(obj, index) {
                         if (obj._id === setting._id) {
-                            $scope.settings.splice(index, 1);
+                            vm.settings.splice(index, 1);
                         }
                     });
                 });
@@ -70,12 +73,12 @@ function settingsController($scope, $state, translate, logger, settingAPI) {
 
     function searchSettings(sortBy) {
         if (sortBy) {
-            $scope.query.sort = sortBy;
+            vm.query.sort = sortBy;
         }
-        getSettings($scope.query, function(settings) {
-            $scope.settings = settings;
-            countSettings($scope.query, function(total) {
-                $scope.count.settings = total;
+        getSettings(vm.query, function(settings) {
+            vm.settings = settings;
+            countSettings(vm.query, function(total) {
+                vm.count.settings = total;
             });
         });
     }

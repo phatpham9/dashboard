@@ -4,103 +4,109 @@ angular
     .module(window.APP.modules.setting)
     .controller('settingDetails', settingDetails);
 
-settingDetails.$inject = ['$scope', '$state', '$stateParams', '$modal', '$filter', 'translate', 'logger', 'settingAPI'];
-function settingDetails($scope, $state, $stateParams, $modal, $filter, translate, logger, settingAPI) {
-    $scope.validationErrors = {
+settingDetails.$inject = ['$state', '$stateParams', '$modal', '$filter', 'translate', 'logger', 'settingAPI'];
+function settingDetails($state, $stateParams, $modal, $filter, translate, logger, settingAPI) {
+    var vm = this;
+
+    vm.state = undefined;
+    vm.setting = {};
+    vm.selectedType = undefined;
+    vm.tmpValue = undefined;
+    vm.validationErrors = {
         key: undefined,
         value: undefined
     };
-    $scope.save = save;
-    $scope.delete = deleteFunc;
+    vm.save = save;
+    vm.delete = deleteFunc;
     init();
 
     // functions
     function init() {
         if ($state.current.name === 'settingCreate') {
-            $scope.state = 'create';
-            $scope.setting = new settingAPI({
+            vm.state = 'create';
+            vm.setting = new settingAPI({
                 key: undefined,
                 value: undefined
             });
 
-            $scope.selectedType = 'text';
-            $scope.tmpValue = undefined;
+            vm.selectedType = 'text';
+            vm.tmpValue = undefined;
         } else {
-            $scope.state = 'details';
+            vm.state = 'details';
             getSetting({
                 _id: $stateParams.settingId
             }, function(setting) {
-                $scope.setting = setting;
+                vm.setting = setting;
 
                 // parse value after getting
-                if (typeof $scope.setting.value === 'object') {
-                    $scope.selectedType = 'JSON';
-                    $scope.tmpValue = $filter('json')($scope.setting.value, 8);
-                } else if (typeof $scope.setting.value === 'number') {
-                    $scope.selectedType = 'number';
-                    $scope.tmpValue = $scope.setting.value;
+                if (typeof vm.setting.value === 'object') {
+                    vm.selectedType = 'JSON';
+                    vm.tmpValue = $filter('json')(vm.setting.value, 8);
+                } else if (typeof vm.setting.value === 'number') {
+                    vm.selectedType = 'number';
+                    vm.tmpValue = vm.setting.value;
                 } else {
-                    $scope.selectedType = 'text';
-                    $scope.tmpValue = String($scope.setting.value);
+                    vm.selectedType = 'text';
+                    vm.tmpValue = String(vm.setting.value);
                 }
             });
         }
     }
-    function save() {
-        if ($scope.form.$valid) {
+    function save(form) {
+        if (form.$valid) {
             // parse value before saving
-            if ($scope.selectedType === 'JSON') {
+            if (vm.selectedType === 'JSON') {
                 try {
-                    $scope.setting.value = JSON.parse($scope.tmpValue);
+                    vm.setting.value = JSON.parse(vm.tmpValue);
                 } catch(err) {
                     logger.alert(translate('INVALID_DATA_TYPE'));
                     return;
                 }
-            } else if ($scope.selectedType === 'number') {
-                var result = Number($scope.tmpValue);
+            } else if (vm.selectedType === 'number') {
+                var result = Number(vm.tmpValue);
                 if (isNaN(result)) {
                     logger.alert(translate('INVALID_DATA_TYPE'));
                     return;
                 }
-                $scope.setting.value = result;
+                vm.setting.value = result;
             } else {
-                $scope.setting.value = String($scope.tmpValue);
+                vm.setting.value = String(vm.tmpValue);
             }
 
-            if ($scope.state === 'create') {
-                if ($scope.setting.canCreate()) {
-                    createSetting($scope.setting, function(setting) {
-                        $scope.form.$setPristine();
+            if (vm.state === 'create') {
+                if (vm.setting.canCreate()) {
+                    createSetting(vm.setting, function(setting) {
+                        form.$setPristine();
                         $state.go('settingDetails', {settingId: setting._id});
                     });
                 }
             } else {
-                if ($scope.setting.canEdit()) {
-                    updateSetting($scope.setting, function(setting) {
-                        $scope.form.$setPristine();
-                        $scope.setting = setting;
+                if (vm.setting.canEdit()) {
+                    updateSetting(vm.setting, function(setting) {
+                        form.$setPristine();
+                        vm.setting = setting;
 
                         // parse value after saving
-                        if (typeof $scope.setting.value === 'object') {
-                            $scope.selectedType = 'JSON';
-                            $scope.tmpValue = $filter('json')($scope.setting.value, 8);
-                        } else if (typeof $scope.setting.value === 'number') {
-                            $scope.selectedType = 'number';
-                            $scope.tmpValue = $scope.setting.value;
+                        if (typeof vm.setting.value === 'object') {
+                            vm.selectedType = 'JSON';
+                            vm.tmpValue = $filter('json')(vm.setting.value, 8);
+                        } else if (typeof vm.setting.value === 'number') {
+                            vm.selectedType = 'number';
+                            vm.tmpValue = vm.setting.value;
                         } else {
-                            $scope.selectedType = 'text';
-                            $scope.tmpValue = String($scope.setting.value);
+                            vm.selectedType = 'text';
+                            vm.tmpValue = String(vm.setting.value);
                         }
                     });
                 }
             }
         }
     }
-    function deleteFunc() {
-        if ($scope.setting.canDelete()) {
-            if (confirm(translate('CONFIRM_DELETE_X', $scope.setting.key))) {
-                deleteSetting($scope.setting, function(setting) {
-                    $scope.form.$setPristine();
+    function deleteFunc(form) {
+        if (vm.setting.canDelete()) {
+            if (confirm(translate('CONFIRM_DELETE_X', vm.setting.key))) {
+                deleteSetting(vm.setting, function(setting) {
+                    form.$setPristine();
                     $state.go('settings');
                 });
             }
@@ -124,7 +130,7 @@ function settingDetails($scope, $state, $stateParams, $modal, $filter, translate
             logger.success(translate('X_HAS_BEEN_CREATED', setting.key));
         }, function(res) {
             if (res.data.validationErrors) {
-                $scope.validationErrors = res.data.validationErrors;
+                vm.validationErrors = res.data.validationErrors;
             }
         });
     }
@@ -136,7 +142,7 @@ function settingDetails($scope, $state, $stateParams, $modal, $filter, translate
             logger.success(translate('X_HAS_BEEN_UPDATED', setting.key));
         }, function(res) {
             if (res.data.validationErrors) {
-                $scope.validationErrors = res.data.validationErrors;
+                vm.validationErrors = res.data.validationErrors;
             }
         });
     }
