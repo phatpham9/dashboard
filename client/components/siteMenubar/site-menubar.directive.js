@@ -10,18 +10,22 @@ function siteMenubar() {
         restrict: 'E',
         replace: true,
         templateUrl: '/components/siteMenubar/site-menubar.html',
-        controller: siteMenubarControllerFunc
+        controller: siteMenubarControllerFunc,
+        controllerAs: 'vm'
     };
 }
 
-siteMenubarControllerFunc.$inject = ['$scope', '$state', 'siteMenubar', 'settingAPI', 'user', 'auth'];
-function siteMenubarControllerFunc($scope, $state, siteMenubar, settingAPI, user, auth) {
-    $scope.menubar = [];
-    $scope.activeItem = activeItem;
-    $scope.isLoggedin = user.isLoggedin;
-    $scope.isAllowed = auth.isAllowed;
-    $scope.$on('userLoggedin', init);
-    $scope.$on('userLoggedout', onLogout);
+siteMenubarControllerFunc.$inject = ['$rootScope', '$state', 'siteMenubar', 'settingAPI', 'user', 'auth'];
+function siteMenubarControllerFunc($rootScope, $state, siteMenubar, settingAPI, user, auth) {
+    var vm = this;
+    
+    vm.menubar = [];
+    vm.activeItem = activeItem;
+    vm.isLoggedin = user.isLoggedin;
+    vm.isAllowed = auth.isAllowed;
+
+    $rootScope.$on('userLoggedin', init);
+    $rootScope.$on('userLoggedout', onLogout);
     init();
 
     // functions
@@ -30,13 +34,13 @@ function siteMenubarControllerFunc($scope, $state, siteMenubar, settingAPI, user
             getMenubar({
                 _id: 'MENUBAR'
             }, function(menubar) {
-                $scope.menubar = [].concat(menubar.main, menubar.settings);
+                vm.menubar = [].concat(menubar.main, menubar.settings);
                 siteMenubar.init();
             });
         }
     }
     function onLogout() {
-        $scope.menubar = [];
+        vm.menubar = [];
     }
     function activeItem(activeStates) {
         return activeStates && activeStates.indexOf($state.current.name) !== -1;
