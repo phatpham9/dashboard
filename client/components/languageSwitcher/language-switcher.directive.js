@@ -4,27 +4,30 @@ angular
     .module(window.APP.modules.main)
     .directive('languageSwitcher', languageSwitcher);
 
-languageSwitcher.$inject = ['language'];
-function languageSwitcher(language) {
+languageSwitcher.$inject = [];
+function languageSwitcher() {
     return {
         restrict: 'E',
         replace: true,
         scope: true,
         templateUrl: '/components/languageSwitcher/language-switcher.html',
-        link: linkFunc
+        controller: languageSwitcherController,
+        controllerAs: 'vm'
     };
-
-    function linkFunc(scope) {
-        scope.locale = language.locale;
-        scope.switch = language.switch;
-        scope.languages = [{
-            key: 'en',
-            name: 'English',
-            icon: 'flag-icon-us'
-        }, {
-            key: 'vi',
-            name: 'Việt Nam',
-            icon: 'flag-icon-vn'
-        }];
-    }
+}
+languageSwitcherController.$inject = ['language'];
+function languageSwitcherController(language) {
+    var vm = this;
+    
+    vm.locale = language.locale;
+    vm.switch = language.switch;
+    vm.languages = [{
+        key: 'en',
+        name: 'English',
+        icon: 'flag-icon-us'
+    }, {
+        key: 'vi',
+        name: 'Việt Nam',
+        icon: 'flag-icon-vn'
+    }];
 }

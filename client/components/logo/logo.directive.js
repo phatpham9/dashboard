@@ -12,15 +12,20 @@ function logo() {
         scope: {
         	color: '@color'
         },
-        template: '<img ng-src="{{logoUrl}}">',
-        link: linkFunc
+        template: '<img ng-src="{{::vm.logoUrl}}">',
+        controller: logoController,
+        controllerAs: 'vm',
+        bindToController: true
     };
+}
 
-    function linkFunc(scope) {
-    	if (scope.color) {
-			scope.logoUrl = '/assets/images/logo-48-' + scope.color + '.png';
-		} else {
-			scope.logoUrl = '/assets/images/logo-48.png';
-		}
+logoController.$inject = [];
+function logoController() {
+    var vm = this;
+
+    if (vm.color) {
+        vm.logoUrl = '/assets/images/logo-48-' + vm.color + '.png';
+    } else {
+        vm.logoUrl = '/assets/images/logo-48.png';
     }
 }

@@ -1,26 +1,26 @@
 ﻿<div class="site-menubar" ng-if="vm.isLoggedin()">
     <div class="site-menubar-body">
         <ul class="site-menu">
-            <li ng-repeat="item in vm.menubar track by $index" class="site-menu-{{item.type === 'item' ? 'item' : 'category'}}" ng-class="{'open': vm.activeItem(item.activeStates)}" ng-if="vm.isAllowed(item.auth)">
-                <a ui-sref="{{item.state}}" ng-if="item.type === 'item' && !item.sub" toggle-site-menubar="xs">
-                    <i class="site-menu-icon" ng-class="item.iconClass" aria-hidden="true"></i>
-                    <span class="site-menu-title" ng-bind-transl="item.title"></span>
-                    <div class="site-menu-label" ng-if="item.externalLink">
+            <li ng-repeat="item in ::vm.menubar track by $index" class="site-menu-{{::item.type === 'item' ? 'item' : 'category'}}" ng-class="{'open': vm.activeItem(item.activeStates)}" ng-if="vm.isAllowed(item.auth)">
+                <a ui-sref="{{::item.state}}" ng-if="::item.type === 'item' && !item.sub" toggle-site-menubar="xs">
+                    <i class="site-menu-icon {{::item.iconClass}}" aria-hidden="true"></i>
+                    <span class="site-menu-title" ng-bind-transl="::item.title"></span>
+                    <div class="site-menu-label" ng-if="::item.externalLink">
                         <i class="fa fa-external-link"></i>
                     </div>
                 </a>
-                <a ng-if="item.type === 'item' && item.sub" toggle-submenu>
-                    <i class="site-menu-icon" ng-class="item.iconClass" aria-hidden="true"></i>
-                    <span class="site-menu-title" ng-bind-transl="item.title"></span>
+                <a ng-if="::item.type === 'item' && item.sub" toggle-submenu>
+                    <i class="site-menu-icon {{::item.iconClass}}" aria-hidden="true"></i>
+                    <span class="site-menu-title" ng-bind-transl="::item.title"></span>
                     <span class="site-menu-arrow"></span>
                 </a>
-                <ul class="site-menu-sub" ng-if="item.type === 'item' && item.sub">
-                    <li class="site-menu-item" ng-repeat="subitem in item.sub track by $index" ng-class="{'open': vm.activeItem(subitem.activeStates)}" ng-if="vm.isAllowed(subitem.auth)">
-                        <a ui-sref="{{subitem.state}}" toggle-site-menubar="xs">
+                <ul class="site-menu-sub" ng-if="::item.type === 'item' && item.sub">
+                    <li class="site-menu-item" ng-repeat="subitem in ::item.sub track by $index" ng-class="{'open': vm.activeItem(subitem.activeStates)}" ng-if="vm.isAllowed(subitem.auth)">
+                        <a ui-sref="{{::subitem.state}}" toggle-site-menubar="xs">
                             <i class="site-menu-icon" aria-hidden="true"></i>
-                            <span class="site-menu-title" ng-bind-transl="subitem.title"></span>
+                            <span class="site-menu-title" ng-bind-transl="::subitem.title"></span>
                         </a>
-                        <div class="site-menu-label" ng-if="subitem.externalLink">
+                        <div class="site-menu-label" ng-if="::subitem.externalLink">
                             <i class="fa fa-external-link"></i>
                         </div>
                     </li>
