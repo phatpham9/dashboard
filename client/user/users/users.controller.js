@@ -4,20 +4,23 @@ angular
     .module(window.APP.modules.user)
     .controller('users', usersController);
 
-usersController.$inject = ['$scope', '$state', '$stateParams', 'translate', 'logger', 'userAPI'];
-function usersController($scope, $state, $stateParams, translate, logger, userAPI) {
-    $scope.query = {
+usersController.$inject = ['$state', '$stateParams', 'translate', 'logger', 'userAPI'];
+function usersController($state, $stateParams, translate, logger, userAPI) {
+    var vm = this;
+
+    vm.query = {
         query: undefined,
         sort: 'email',
         page: 1,
         limit: 25
     };
-    $scope.count = {
+    vm.users = [];
+    vm.count = {
         users: 0
     };
-    $scope.search = searchUsers;
-    $scope.canCreate = canCreate;
-    $scope.delete = deleteFunc;
+    vm.search = searchUsers;
+    vm.canCreate = canCreate;
+    vm.delete = deleteFunc;
     searchUsers();
 
     // functions
@@ -28,9 +31,9 @@ function usersController($scope, $state, $stateParams, translate, logger, userAP
         if (user && user.canDelete()) {
             if (confirm(translate('CONFIRM_DELETE_X', user.email))) {
                 deleteUser(user, function(user) {
-                    $scope.users.forEach(function(obj, i) {
+                    vm.users.forEach(function(obj, i) {
                         if (obj._id === user._id) {
-                            $scope.users.splice(i, 1);
+                            vm.users.splice(i, 1);
                         }
                     });
                 });
@@ -40,12 +43,12 @@ function usersController($scope, $state, $stateParams, translate, logger, userAP
 
     function searchUsers(sortBy) {
         if (sortBy) {
-            $scope.query.sort = sortBy;
+            vm.query.sort = sortBy;
         }
-        getUsers($scope.query, function(users) {
-            $scope.users = users;
-            countUsers($scope.query, function(total) {
-                $scope.count.users = total;
+        getUsers(vm.query, function(users) {
+            vm.users = users;
+            countUsers(vm.query, function(total) {
+                vm.count.users = total;
             });
         });
     }

@@ -7,7 +7,7 @@
             </ol>
         </h1>
         <div class="page-header-actions">
-            <a class="btn btn-primary" ui-sref="userCreate" ng-if="canCreate()">
+            <a class="btn btn-primary" ui-sref="userCreate" ng-if="vm.canCreate()">
                 <i class="icon fa fa-plus fa-fw"></i> <span class="hidden-xs" ng-bind-transl="'BUTTON_CREATE_USER'"></span>
             </a>
         </div>
@@ -18,13 +18,13 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="input-search clearfix margin-bottom-20">
-                            <form name="form" ng-submit="search()">
+                            <form name="form" ng-submit="vm.search()">
                                 <i class="input-search-icon fa fa-search" aria-hidden="true"></i>
-                                <input type="text" class="form-control" name="query" placeholder-transl="'SEARCH_USERS'" ng-model="query.query" maxlength="256">
+                                <input type="text" class="form-control" name="query" placeholder-transl="'SEARCH_USERS'" ng-model="vm.query.query" maxlength="256">
                             </form>
                         </div>
                         <div class="table-responsive">
-                            <table class="table" sortable-table sort-action="search" ng-model="query.sort">
+                            <table class="table" sortable-table sort-action="vm.search" ng-model="vm.query.sort">
                                 <thead>
                                     <tr>
                                         <th class="width-50">#</th>
@@ -34,8 +34,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="user in users track by user._id">
-                                        <td ng-bind="$index + (query.limit * (query.page - 1)) + 1"></td>
+                                    <tr ng-repeat="user in vm.users track by user._id">
+                                        <td ng-bind="$index + (vm.query.limit * (vm.query.page - 1)) + 1"></td>
                                         <td>
                                             <a ui-sref="userDetails({userId: user._id})" ng-bind="user.email"></a>
                                         </td>
@@ -44,18 +44,18 @@
                                             <span ng-if="!user.group">—</span>
                                         </td>
                                         <td class="text-right">
-                                            <button type="button" class="btn btn-xs btn-danger" ng-if="user.canDelete()" ng-click="delete(user)">
+                                            <button type="button" class="btn btn-xs btn-danger" ng-if="user.canDelete()" ng-click="vm.delete(user)">
                                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                             </button>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="text-center" ng-if="users.length === 0" ng-bind-transl="'NO_RESULTS'"></div>
+                            <div class="text-center" ng-if="vm.users.length === 0" ng-bind-transl="'NO_RESULTS'"></div>
                         </div>
                         <nav class="clearfix">
-                            <pagesize></pagesize>
-                            <pagination class="pull-right margin-0" total-items="count.users" ng-model="query.page" items-per-page="query.limit" max-size="5" num-pages="numPages" direction-links="false" rotate="false" ng-change="search()"></pagination>
+                            <pagesize ps-model="vm.query.limit" ps-on-change="vm.search"></pagesize>
+                            <pagination class="pull-right margin-0" total-items="vm.count.users" ng-model="vm.query.page" items-per-page="vm.query.limit" max-size="5" num-pages="numPages" direction-links="false" rotate="false" ng-change="vm.search()"></pagination>
                         </nav>
                     </div>
                 </div>

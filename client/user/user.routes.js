@@ -19,6 +19,7 @@ function userRoutes($stateProvider, $ocLazyLoadProvider) {
                 }]
             },
             controller: 'users',
+            controllerAs: 'vm',
             auth: {
                 requiresLogin: true,
                 allows: {
@@ -40,6 +41,7 @@ function userRoutes($stateProvider, $ocLazyLoadProvider) {
                 }]
             },
             controller: 'userDetails',
+            controllerAs: 'vm',
             auth: {
                 requiresLogin: true,
                 allows: {
@@ -75,6 +77,7 @@ function userRoutes($stateProvider, $ocLazyLoadProvider) {
                 ]
             },
             controller: 'userDetails',
+            controllerAs: 'vm',
             auth: {
                 requiresLogin: true,
                 allows: {
@@ -96,6 +99,7 @@ function userRoutes($stateProvider, $ocLazyLoadProvider) {
                 }]
             },
             controller: 'userDetails',
+            controllerAs: 'vm',
             auth: {
                 requiresLogin: true
             }

@@ -1,21 +1,21 @@
-﻿<form class="confirm-leaving page-wrapper" name="form" novalidate ng-submit="save()">
+﻿<form class="confirm-leaving page-wrapper" name="form" novalidate ng-submit="vm.save(form)">
     <div class="page-header">
         <h1 class="page-title">
             <ol class="breadcrumb">
                 <li><span class="icon fa fa-gear fa-fw"></span><a ui-sref="settings" ng-bind-transl="'SETTINGS'"></a></li>
-                <li ng-if="state !== 'profile'"><a ui-sref="users" ng-bind-transl="'USERS'"></a></li>
-                <li ng-if="state !== 'profile'">
-                    <span ng-bind-transl="'CREATE_USER'" ng-if="state === 'create'"></span>
-                    <span ng-bind="user.email" ng-if="state === 'details'"></span>
+                <li ng-if="vm.state !== 'profile'"><a ui-sref="users" ng-bind-transl="'USERS'"></a></li>
+                <li ng-if="vm.state !== 'profile'">
+                    <span ng-bind-transl="'CREATE_USER'" ng-if="vm.state === 'create'"></span>
+                    <span ng-bind="vm.user.email" ng-if="vm.state === 'details'"></span>
                 </li>
-                <li ng-if="state === 'profile'" ng-bind-transl="'PROFILE'"></li>
+                <li ng-if="vm.state === 'profile'" ng-bind-transl="'PROFILE'"></li>
             </ol>
         </h1>
         <div class="page-header-actions">
-            <button type="button" class="btn btn-danger" ng-if="state === 'details' && user.canDelete()" ng-click="delete()">
+            <button type="button" class="btn btn-danger" ng-if="vm.state === 'details' && vm.user.canDelete()" ng-click="vm.delete(form)">
                 <i class="icon fa fa-trash fa-fw"></i> <span class="hidden-xs" ng-bind-transl="'BUTTON_DELETE'"></span>
             </button>
-            <button type="submit" class="btn btn-primary" ng-disabled="form.$pristine" ng-if="(state === 'create' && user.canCreate()) || (state === 'details' && user.canEdit()) || state === 'profile'">
+            <button type="submit" class="btn btn-primary" ng-disabled="form.$pristine" ng-if="(vm.state === 'create' && vm.user.canCreate()) || (vm.state === 'details' && vm.user.canEdit()) || vm.state === 'profile'">
                 <i class="icon fa fa-floppy-o fa-fw"></i> <span class="hidden-xs" ng-bind-transl="'BUTTON_SAVE'"></span>
             </button>
         </div>
@@ -30,38 +30,38 @@
                 <div class="panel">
                     <div class="panel-body">
                         <div class="form-group row">
-                            <div class="col-sm-6" ng-class="{'has-error': form.$submitted && (form.email.$invalid || validationErrors.email)}">
+                            <div class="col-sm-6" ng-class="{'has-error': form.$submitted && (form.email.$invalid || vm.validationErrors.email)}">
                                 <label class="control-label" for="email" ng-bind-transl="'EMAIL'"></label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder-transl="'EMAIL'" ng-model="user.email" maxlength="256" autofocus ng-disabled="state !== 'create' && user.isProtected">
+                                <input type="email" class="form-control" id="email" name="email" placeholder-transl="'EMAIL'" ng-model="vm.user.email" maxlength="256" autofocus ng-disabled="vm.state !== 'create' && vm.user.isProtected">
                                 <small class="help-block" ng-if="form.$submitted && form.email.$error.required" ng-bind-transl="'VALIDATION_REQUIRED'"></small>
                                 <small class="help-block" ng-if="form.$submitted && form.email.$error.email" ng-bind-transl="'VALIDATION_EMAIL'"></small>
-                                <small class="help-block" ng-if="form.$submitted && validationErrors.email" ng-bind="validationErrors.email"></small>
+                                <small class="help-block" ng-if="form.$submitted && vm.validationErrors.email" ng-bind="vm.validationErrors.email"></small>
                             </div>
                             <!-- user password -->
-                            <div class="col-sm-6" ng-class="{'has-error': form.$submitted && (form.password.$invalid || validationErrors.password)}" ng-if="state === 'create'">
+                            <div class="col-sm-6" ng-class="{'has-error': form.$submitted && (form.password.$invalid || vm.validationErrors.password)}" ng-if="vm.state === 'create'">
                                 <label class="control-label" for="password" ng-bind-transl="'PASSWORD'"></label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder-transl="'PASSWORD'" ng-model="user.password" minlength="6" maxlength="256" required>
+                                <input type="password" class="form-control" id="password" name="password" placeholder-transl="'PASSWORD'" ng-model="vm.user.password" minlength="6" maxlength="256" required>
                                 <small class="help-block" ng-if="form.$submitted && form.password.$error.required" ng-bind-transl="'VALIDATION_REQUIRED'"></small>
                                 <small class="help-block" ng-if="form.$submitted && form.password.$error.minlength" ng-bind-transl="'VALIDATION_MINLENGTH:[6]'"></small>
-                                <small class="help-block" ng-if="form.$submitted && validationErrors.password" ng-bind="validationErrors.password"></small>
+                                <small class="help-block" ng-if="form.$submitted && vm.validationErrors.password" ng-bind="vm.validationErrors.password"></small>
                             </div>
-                            <div class="col-sm-6" ng-if="state === 'profile'">
+                            <div class="col-sm-6" ng-if="vm.state === 'profile'">
                                 <label class="control-label" ng-bind-transl="'PASSWORD'"></label>
                                 <p class="form-control-static">
-                                    <a href="javascript:void(0)" ng-click="changePassword()" ng-bind-transl="'BUTTON_CHANGE_PASSWORD'"></a>
+                                    <a href="javascript:void(0)" ng-click="vm.changePassword()" ng-bind-transl="'BUTTON_CHANGE_PASSWORD'"></a>
                                 </p>
                             </div>
                             <!-- user group -->
-                            <div class="col-sm-6" ng-class="{'margin-top-20': state === 'create', 'has-error': form.$submitted && (form.group.$invalid || validationErrors.group)}" ng-if="state === 'create' || (state === 'details' && user.canEdit())">
+                            <div class="col-sm-6" ng-class="{'margin-top-20': vm.state === 'create', 'has-error': form.$submitted && (form.group.$invalid || vm.validationErrors.group)}" ng-if="vm.state === 'create' || (vm.state === 'details' && vm.user.canEdit())">
                                 <label class="control-label" for="group" ng-bind-transl="'GROUP'"></label>
-                                <select class="form-control" id="group" name="group" ng-options="group as group.name for group in groups track by group._id" ng-model="user.group">
+                                <select class="form-control" id="group" name="group" ng-options="group as group.name for group in vm.groups track by group._id" ng-model="vm.user.group">
                                     <option value="" ng-bind-transl="'SELECT_GROUP'"></option>
                                 </select>
-                                <small class="help-block" ng-if="form.$submitted && validationErrors.group" ng-bind="validationErrors.group"></small>
+                                <small class="help-block" ng-if="form.$submitted && vm.validationErrors.group" ng-bind="vm.validationErrors.group"></small>
                             </div>
-                            <div class="col-sm-6" ng-if="state === 'details' && !user.canEdit()">
+                            <div class="col-sm-6" ng-if="vm.state === 'details' && !vm.user.canEdit()">
                                 <label class="control-label" ng-bind-transl="'GROUP'"></label>
-                                <input class="form-control" type="text" ng-model="user.group.name" disabled="disabled">
+                                <input class="form-control" type="text" ng-model="vm.user.group.name" disabled="disabled">
                             </div>
                         </div>
                     </div>

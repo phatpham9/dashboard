@@ -4,22 +4,27 @@ angular
     .module(window.APP.modules.user)
     .controller('userDetails', userDetailsController);
 
-userDetailsController.$inject = ['$scope', '$state', '$stateParams', '$modal', 'translate', 'logger', 'userAPI', 'groupAPI'];
-function userDetailsController($scope, $state, $stateParams, $modal, translate, logger, userAPI, groupAPI) {
-    $scope.validationErrors = {
+userDetailsController.$inject = ['$state', '$stateParams', '$modal', 'translate', 'logger', 'userAPI', 'groupAPI'];
+function userDetailsController($state, $stateParams, $modal, translate, logger, userAPI, groupAPI) {
+    var vm = this;
+
+    vm.validationErrors = {
         email: undefined,
         password: undefined
     };
-    $scope.save = save;
-    $scope.changePassword = changePassword;
-    $scope.delete = deleteFunc;
+    vm.state = undefined;
+    vm.user = {};
+    vm.groups = [];
+    vm.save = save;
+    vm.changePassword = changePassword;
+    vm.delete = deleteFunc;
     init();
 
     // functions
     function init() {
         if ($state.current.name === 'userCreate') {
-            $scope.state = 'create';
-            $scope.user = new userAPI({
+            vm.state = 'create';
+            vm.user = new userAPI({
                 email: undefined,
                 password: undefined
             });
@@ -29,68 +34,68 @@ function userDetailsController($scope, $state, $stateParams, $modal, translate, 
                 page: 0,
                 sort: 'name'
             }, function(groups) {
-                $scope.groups = groups;
+                vm.groups = groups;
             });
         } else if ($state.current.name === 'userDetails') {
-            $scope.state = 'details';
+            vm.state = 'details';
             getUser({
                 _id: $stateParams.userId
             }, function(_user) {
-                $scope.user = _user;
+                vm.user = _user;
 
                 getGroups({
                     limit: 0,
                     page: 0,
                     sort: 'name'
                 }, function(groups) {
-                    $scope.groups = groups;
+                    vm.groups = groups;
                 });
             });
         } else {
-            $scope.state = 'profile';
+            vm.state = 'profile';
             getProfile(function(_user) {
-                $scope.user = _user;
+                vm.user = _user;
             });
         }
     }
-    function save() {
-        if ($scope.form.$valid) {
-            if ($scope.state === 'create') {
-                if ($scope.user.canCreate()) {
-                    createUser($scope.user, function(_user) {
-                        $scope.form.$setPristine();
+    function save(form) {
+        if (form.$valid) {
+            if (vm.state === 'create') {
+                if (vm.user.canCreate()) {
+                    createUser(vm.user, function(_user) {
+                        form.$setPristine();
                         $state.go('userDetails', {userId: _user._id});
                     });
                 }
-            } else if ($scope.state === 'details') {
-                if ($scope.user.canEdit()) {
-                    updateUser($scope.user, function(_user) {
-                        $scope.form.$setPristine();
-                        $scope.user = _user;
+            } else if (vm.state === 'details') {
+                if (vm.user.canEdit()) {
+                    updateUser(vm.user, function(_user) {
+                        form.$setPristine();
+                        vm.user = _user;
                     });
                 }
             } else {
-                updateProfile($scope.user, function(_user) {
-                    $scope.form.$setPristine();
-                    $scope.user = _user;
+                updateProfile(vm.user, function(_user) {
+                    form.$setPristine();
+                    vm.user = _user;
                     // update current logged in user info
-                    user.login($scope.user);
+                    user.login(vm.user);
                 });
             }
         }
     }
-    function deleteFunc() {
-        if ($scope.user.canDelete()) {
-            if (confirm(translate('CONFIRM_DELETE_X', $scope.user.email))) {
-                deleteUser($scope.user, function(_user) {
-                    $scope.form.$setPristine();
+    function deleteFunc(form) {
+        if (vm.user.canDelete()) {
+            if (confirm(translate('CONFIRM_DELETE_X', vm.user.email))) {
+                deleteUser(vm.user, function(_user) {
+                    form.$setPristine();
                     $state.go('users');
                 });
             }
         }
     }
     function changePassword() {
-        if ($scope.state === 'profile') {
+        if (vm.state === 'profile') {
             var modalInstance = $modal.open({
                 backdrop: 'static',
                 templateUrl: '/user/changePasswordModal/changePasswordModal.html',
@@ -102,10 +107,11 @@ function userDetailsController($scope, $state, $stateParams, $modal, translate, 
                         ]);
                     }],
                     userId: function() {
-                        return $scope.user._id;
+                        return vm.user._id;
                     }
                 },
-                controller: 'changePasswordModal'
+                controller: 'changePasswordModal',
+                controllerAs: 'vm'
             });
         }
     }
@@ -127,7 +133,7 @@ function userDetailsController($scope, $state, $stateParams, $modal, translate, 
             logger.success(translate('X_HAS_BEEN_CREATED', _user.email));
         }, function(res) {
             if (res.data.validationErrors) {
-                $scope.validationErrors = res.data.validationErrors;
+                vm.validationErrors = res.data.validationErrors;
             }
         });
     }
@@ -139,7 +145,7 @@ function userDetailsController($scope, $state, $stateParams, $modal, translate, 
             logger.success(translate('X_HAS_BEEN_UPDATED', _user.email));
         }, function(res) {
             if (res.data.validationErrors) {
-                $scope.validationErrors = res.data.validationErrors;
+                vm.validationErrors = res.data.validationErrors;
             }
         });
     }
@@ -175,7 +181,7 @@ function userDetailsController($scope, $state, $stateParams, $modal, translate, 
             logger.success(translate('X_HAS_BEEN_UPDATED', _profile.email));
         }, function(res) {
             if (res.data.validationErrors) {
-                $scope.validationErrors = res.data.validationErrors;
+                vm.validationErrors = res.data.validationErrors;
             }
         });
     }

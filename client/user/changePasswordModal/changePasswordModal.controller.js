@@ -4,24 +4,26 @@ angular
     .module(window.APP.modules.user)
     .controller('changePasswordModal', changePasswordModalController);
 
-changePasswordModalController.$inject = ['$scope', '$modalInstance', 'translate', 'logger', 'userAPI', 'userId'];
-function changePasswordModalController($scope, $modalInstance, translate, logger, userAPI, userId) {
-    $scope.user = {
+changePasswordModalController.$inject = ['$modalInstance', 'translate', 'logger', 'userAPI', 'userId'];
+function changePasswordModalController($modalInstance, translate, logger, userAPI, userId) {
+    var vm = this;
+
+    vm.user = {
         _id: userId,
         password: undefined,
         confirmPassword: undefined
     };
-    $scope.validationErrors = {
+    vm.validationErrors = {
         password: undefined,
         confirmPassword: undefined
     };
-    $scope.save = save;
-    $scope.cancel = cancel;
+    vm.save = save;
+    vm.cancel = cancel;
 
     // functions
-    function save(valid) {
-        if (valid) {
-            changePassword($scope.user, function(res) {
+    function save(form) {
+        if (form.$valid) {
+            changePassword(vm.user, function(res) {
                 $modalInstance.close();
             });
         }
@@ -37,7 +39,7 @@ function changePasswordModalController($scope, $modalInstance, translate, logger
             logger.success(translate('X_HAS_BEEN_UPDATED', translate('NEW_PASSWORD')));
         }, function(res) {
             if (res.data.validationErrors) {
-                $scope.validationErrors = res.data.validationErrors;
+                vm.validationErrors = res.data.validationErrors;
             }
         });
     }
