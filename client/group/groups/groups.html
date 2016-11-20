@@ -49,7 +49,7 @@
                             <div class="text-center" ng-if="groups.length === 0" ng-bind-transl="'NO_RESULTS'"></div>
                         </div>
                         <nav class="clearfix">
-                            <pagesize></pagesize>
+                            <pagesize ps-model="vm.query.limit" ps-on-change="vm.search"></pagesize>
                             <pagination class="pull-right margin-0" total-items="vm.count.groups" ng-model="vm.query.page" items-per-page="vm.query.limit" max-size="5" num-pages="numPages" direction-links="false" rotate="false" ng-change="vm.search()"></pagination>
                         </nav>
                     </div>
