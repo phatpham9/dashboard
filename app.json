@@ -2,7 +2,7 @@
 	"name": "dashboard",
     "title": "Dashboard",
     "description": "Dashboard app based on AngularJS, Express and MongoDB",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "year": "2016",
     "language": "en",
     "cookieId": "dc7161be3dbf2250c8954e560cc35060",
