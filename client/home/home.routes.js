@@ -18,6 +18,7 @@ function homeRoutes($stateProvider, $ocLazyLoadProvider) {
                 }]
             },
             controller: 'home',
+            controllerAs: 'vm',
             auth: {
                 requiresLogin: true
             }
