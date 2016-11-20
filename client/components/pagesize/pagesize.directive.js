@@ -9,7 +9,10 @@ function pagesize() {
     return {
         restrict: 'E',
         replace: true,
-        scope: true,
+        scope: {
+        	model: '=psModel',
+        	change: '=psOnChange'
+        },
         templateUrl: '/components/pagesize/pagesize.html'
     };
 }
