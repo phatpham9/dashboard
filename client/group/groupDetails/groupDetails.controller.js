@@ -4,28 +4,34 @@ angular
     .module(window.APP.modules.group)
     .controller('groupDetails', groupDetailsController);
 
-groupDetailsController.$inject = ['$scope', '$state', '$stateParams', 'translate', 'logger', 'groupAPI', 'userAPI', 'settingAPI'];
-function groupDetailsController($scope, $state, $stateParams, translate, logger, groupAPI, userAPI, settingAPI) {
-    $scope.validationErrors = {
+groupDetailsController.$inject = ['$state', '$stateParams', 'translate', 'logger', 'groupAPI', 'userAPI', 'settingAPI'];
+function groupDetailsController($state, $stateParams, translate, logger, groupAPI, userAPI, settingAPI) {
+    var vm = this;
+
+    vm.state = undefined;
+    vm.group = {};
+    vm.users = [];
+    vm.permissions = [];
+    vm.validationErrors = {
         name: undefined
     };
-    $scope.save = save;
-    $scope.delete = deleteFunc;
+    vm.save = save;
+    vm.delete = deleteFunc;
     init();
 
     // functions
     function init() {
         if ($state.current.name === 'groupCreate') {
-            $scope.state = 'create';
-            $scope.group = new groupAPI({
+            vm.state = 'create';
+            vm.group = new groupAPI({
                 name: undefined
             });
         } else {
-            $scope.state = 'details';
+            vm.state = 'details';
             getGroup({
                 _id: $stateParams.groupId
             }, function(group) {
-                $scope.group = group;
+                vm.group = group;
 
                 // get group's users
                 getUsers({
@@ -33,19 +39,19 @@ function groupDetailsController($scope, $state, $stateParams, translate, logger,
                     page: 0,
                     sort: 'email',
                     filter: {
-                        group: $scope.group._id
+                        group: vm.group._id
                     }
                 }, function(users) {
-                    $scope.users = users;
+                    vm.users = users;
                 });
             });
         }
         getSetting({
             _id: 'DEFAULT_PERMISSIONS'
         }, function(setting) {
-            $scope.permissions = [];
+            vm.permissions = [];
             Object.keys(setting.value).forEach(function(resource) {
-                $scope.permissions.push({
+                vm.permissions.push({
                     resource: resource,
                     permissions: setting.value[resource]
                 });
@@ -53,29 +59,29 @@ function groupDetailsController($scope, $state, $stateParams, translate, logger,
         });
     }
     function save() {
-        if ($scope.form.$valid) {
-            if ($scope.state === 'create') {
-                if ($scope.group.canCreate()) {
-                    createGroup($scope.group, function(group) {
-                        $scope.form.$setPristine();
+        if (vm.form.$valid) {
+            if (vm.state === 'create') {
+                if (vm.group.canCreate()) {
+                    createGroup(vm.group, function(group) {
+                        vm.form.$setPristine();
                         $state.go('groupDetails', {groupId: group._id});
                     });
                 }
             } else {
-                if ($scope.group.canEdit()) {
-                    updateGroup($scope.group, function(group) {
-                        $scope.form.$setPristine();
-                        $scope.group = group;
+                if (vm.group.canEdit()) {
+                    updateGroup(vm.group, function(group) {
+                        vm.form.$setPristine();
+                        vm.group = group;
                     });
                 }
             }
         }
     }
     function deleteFunc() {
-        if ($scope.group.canDelete()) {
-            if (confirm(translate('CONFIRM_DELETE_X', $scope.group.name))) {
-                deleteGroup($scope.group, function(group) {
-                    $scope.form.$setPristine();
+        if (vm.group.canDelete()) {
+            if (confirm(translate('CONFIRM_DELETE_X', vm.group.name))) {
+                deleteGroup(vm.group, function(group) {
+                    vm.form.$setPristine();
                     $state.go('groups');
                 });
             }
@@ -99,7 +105,7 @@ function groupDetailsController($scope, $state, $stateParams, translate, logger,
             logger.success(translate('X_HAS_BEEN_CREATED', group.name));
         }, function(res) {
             if (res.data.validationErrors) {
-                $scope.validationErrors = res.data.validationErrors;
+                vm.validationErrors = res.data.validationErrors;
             }
         });
     }
@@ -111,7 +117,7 @@ function groupDetailsController($scope, $state, $stateParams, translate, logger,
             logger.success(translate('X_HAS_BEEN_UPDATED', group.name));
         }, function(res) {
             if (res.data.validationErrors) {
-                $scope.validationErrors = res.data.validationErrors;
+                vm.validationErrors = res.data.validationErrors;
             }
         });
     }

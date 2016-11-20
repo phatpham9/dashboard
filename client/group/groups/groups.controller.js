@@ -4,20 +4,22 @@ angular
     .module(window.APP.modules.group)
     .controller('groups', groupsController);
 
-groupsController.$inject = ['$scope', '$state', '$stateParams', 'translate', 'logger', 'groupAPI'];
-function groupsController($scope, $state, $stateParams, translate, logger, groupAPI) {
-    $scope.query = {
+groupsController.$inject = ['$state', '$stateParams', 'translate', 'logger', 'groupAPI'];
+function groupsController($state, $stateParams, translate, logger, groupAPI) {
+    var vm = this;
+    
+    vm.query = {
         query: undefined,
         sort: 'name',
         page: 1,
         limit: 25
     };
-    $scope.count = {
+    vm.count = {
         groups: 0
     };
-    $scope.search = searchGroups;
-    $scope.canCreate = canCreate;
-    $scope.delete = deleteFunc;
+    vm.search = searchGroups;
+    vm.canCreate = canCreate;
+    vm.delete = deleteFunc;
     searchGroups();
 
     // functions
@@ -28,9 +30,9 @@ function groupsController($scope, $state, $stateParams, translate, logger, group
         if (group && group.canDelete()) {
             if (confirm(translate('CONFIRM_DELETE_X', group.name))) {
                 deleteGroup(group, function(group) {
-                    $scope.groups.forEach(function(obj, i) {
+                    vm.groups.forEach(function(obj, i) {
                         if (obj._id === group._id) {
-                            $scope.groups.splice(i, 1);
+                            vm.groups.splice(i, 1);
                         }
                     });
                 });
@@ -40,12 +42,12 @@ function groupsController($scope, $state, $stateParams, translate, logger, group
     
     function searchGroups(sortBy) {
         if (sortBy) {
-            $scope.query.sort = sortBy;
+            vm.query.sort = sortBy;
         }
-        getGroups($scope.query, function(groups) {
-            $scope.groups = groups;
-            countGroups($scope.query, function(total) {
-                $scope.count.groups = total;
+        getGroups(vm.query, function(groups) {
+            vm.groups = groups;
+            countGroups(vm.query, function(total) {
+                vm.count.groups = total;
             });
         });
     }

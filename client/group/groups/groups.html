@@ -7,7 +7,7 @@
             </ol>
         </h1>
         <div class="page-header-actions">
-            <a class="btn btn-primary" ui-sref="groupCreate" ng-if="canCreate()">
+            <a class="btn btn-primary" ui-sref="groupCreate" ng-if="vm.canCreate()">
                 <i class="icon fa fa-plus fa-fw"></i> <span class="hidden-xs" ng-bind-transl="'BUTTON_CREATE_GROUP'"></span>
             </a>
         </div>
@@ -18,13 +18,13 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="input-search clearfix margin-bottom-20">
-                            <form name="form" ng-submit="search()">
+                            <form name="form" ng-submit="vm.search()">
                                 <i class="input-search-icon fa fa-search" aria-hidden="true"></i>
-                                <input type="text" class="form-control" name="query" placeholder-transl="'SEARCH_GROUPS'" ng-model="query.query" maxlength="256">
+                                <input type="text" class="form-control" name="query" placeholder-transl="'SEARCH_GROUPS'" ng-model="vm.query.query" maxlength="256">
                             </form>
                         </div>
                         <div class="table-responsive">
-                            <table class="table" sortable-table sort-action="search" ng-model="query.sort">
+                            <table class="table" sortable-table sort-action="vm.search" ng-model="vm.query.sort">
                                 <thead>
                                     <tr>
                                         <th class="width-50">#</th>
@@ -33,13 +33,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="group in groups track by group._id">
-                                        <td ng-bind="$index + (query.limit * (query.page - 1)) + 1"></td>
+                                    <tr ng-repeat="group in vm.groups track by group._id">
+                                        <td ng-bind="$index + (vm.query.limit * (vm.query.page - 1)) + 1"></td>
                                         <td>
                                             <a ui-sref="groupDetails({groupId: group._id})" ng-bind="group.name"></a>
                                         </td>
                                         <td class="text-right">
-                                            <button type="button" class="btn btn-xs btn-danger" ng-if="group.canDelete()" ng-click="delete(group)">
+                                            <button type="button" class="btn btn-xs btn-danger" ng-if="group.canDelete()" ng-click="vm.delete(group)">
                                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                             </button>
                                         </td>
@@ -50,7 +50,7 @@
                         </div>
                         <nav class="clearfix">
                             <pagesize></pagesize>
-                            <pagination class="pull-right margin-0" total-items="count.groups" ng-model="query.page" items-per-page="query.limit" max-size="5" num-pages="numPages" direction-links="false" rotate="false" ng-change="search()"></pagination>
+                            <pagination class="pull-right margin-0" total-items="vm.count.groups" ng-model="vm.query.page" items-per-page="vm.query.limit" max-size="5" num-pages="numPages" direction-links="false" rotate="false" ng-change="vm.search()"></pagination>
                         </nav>
                     </div>
                 </div>

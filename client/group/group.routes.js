@@ -19,6 +19,7 @@ function groupRoutes($stateProvider, $ocLazyLoadProvider) {
                 }]
             },
             controller: 'groups',
+            controllerAs: 'vm',
             auth: {
                 requiresLogin: true,
                 allows: {
@@ -41,6 +42,7 @@ function groupRoutes($stateProvider, $ocLazyLoadProvider) {
                 }]
             },
             controller: 'groupDetails',
+            controllerAs: 'vm',
             auth: {
                 requiresLogin: true,
                 allows: {
@@ -63,6 +65,7 @@ function groupRoutes($stateProvider, $ocLazyLoadProvider) {
                 }]
             },
             controller: 'groupDetails',
+            controllerAs: 'vm',
             auth: {
                 requiresLogin: true,
                 allows: {
