@@ -22,11 +22,11 @@ function languageSwitcherController(language) {
     vm.locale = language.locale;
     vm.switch = language.switch;
     vm.languages = [{
-        key: 'en',
+        key: 'us',
         name: 'English',
         icon: 'flag-icon-us'
     }, {
-        key: 'vi',
+        key: 'vn',
         name: 'Việt Nam',
         icon: 'flag-icon-vn'
     }];
