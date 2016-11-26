@@ -5,6 +5,7 @@ var session = require('../config/session');
 
 var express = require('express');
 var path = require('path');
+var responseTime = require('response-time');
 var logger = require('morgan');
 var expressValidator = require('express-validator');
 var useragent = require('express-useragent');
@@ -26,6 +27,8 @@ exports.load = function(app) {
         res.set('X-Powered-By', 'Dashboard');
         next();
     });
+    // response time
+    app.use(responseTime());
     // common middlewares
     app.use(logger('common'));
     app.use(express.static(config.publicDirectory));

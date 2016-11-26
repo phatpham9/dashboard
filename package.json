@@ -44,7 +44,8 @@
     "multer": "1.2.0",
     "nodemailer": "2.6.4",
     "passport": "0.3.2",
-    "passport-local": "1.0.0"
+    "passport-local": "1.0.0",
+    "response-time": "2.3.2"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
