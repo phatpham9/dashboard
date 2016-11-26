@@ -31,7 +31,6 @@
         "oclazyload": "1.0.1",
         "ngprogress": "~1.1.2",
         "angular-i18n": "~1.4.7",
-        "angular-datepicker": "~1.0.20",
         "alertifyjs": "^1.0.11"
     },
     "resolutions": {

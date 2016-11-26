@@ -37,9 +37,7 @@ module.exports = function(grunt) {
                     'alertifyjs/dist/js/alertify.js',
                     'alertifyjs/dist/js/ngAlertify.js',
                     // progress bar
-                    'ngprogress/build/ngprogress.js',
-                    // datepicker
-                    'angular-datepicker/dist/angular-datepicker.js'
+                    'ngprogress/build/ngprogress.js'
                 ],
                 flatten: true,
                 dest: 'public/assets/scripts'
@@ -51,9 +49,7 @@ module.exports = function(grunt) {
                 src: [
                     'font-awesome/css/font-awesome.css',
                     // alertify
-                    'alertify.js/dist/css/alertify.css',
-                    // datepicker
-                    'angular-datepicker/dist/angular-datepicker.css'
+                    'alertify.js/dist/css/alertify.css'
                 ],
                 flatten: true,
                 dest: 'public/assets/styles'
