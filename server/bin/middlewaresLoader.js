@@ -21,6 +21,12 @@ var includeAll = require('include-all');
 var path = require('path');
 
 exports.load = function(app) {
+    // override response header
+    app.use(function(req, res, next) {
+        res.set('X-Powered-By', 'Dashboard');
+        next();
+    });
+    // common middlewares
     app.use(logger('common'));
     app.use(express.static(config.publicDirectory));
     app.use(useragent.express());
