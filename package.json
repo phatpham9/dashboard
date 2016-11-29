@@ -61,6 +61,7 @@
     "grunt-json-minify": "1.1.0",
     "grunt-nodemon": "^0.4.0",
     "grunt-sails-linker": "~1.0.3",
-    "grunt-sync": "~0.6.2"
+    "grunt-sync": "~0.6.2",
+    "jslint": "0.10.3"
   }
 }
