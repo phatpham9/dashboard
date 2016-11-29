@@ -1,6 +1,6 @@
 {
   "name": "dashboard",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Dashboard app based on AngularJS, Express and MongoDB",
   "author": {
     "name": "Phat Pham",
