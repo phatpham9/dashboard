@@ -13,8 +13,8 @@ function appConfig($httpProvider, $compileProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
 }
 
-appRun.$inject = ['$rootScope', 'language', 'logger', 'connection', 'pageTitle', 'progressbar', 'setting', 'user', 'auth'];
-function appRun($rootScope, language, logger, connection, pageTitle, progressbar, setting, user, auth) {
+appRun.$inject = ['language', 'logger', 'connection', 'pageTitle', 'progressbar', 'setting', 'user', 'auth'];
+function appRun(language, logger, connection, pageTitle, progressbar, setting, user, auth) {
     language.init();
     logger.init();
     connection.init();

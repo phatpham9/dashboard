@@ -4,8 +4,8 @@ angular
     .module(window.APP.modules.main)
     .service('siteMenubar', siteMenubar);
 
-siteMenubar.$inject = ['$rootScope'];
-function siteMenubar($rootScope) {
+siteMenubar.$inject = [];
+function siteMenubar() {
     var service = {
         init: init,
         animate: animate,
