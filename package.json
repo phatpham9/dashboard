@@ -10,7 +10,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/phatpham9/dashboard.git"
+    "url": "https://github.com/phatpham9/dashboard.git"
   },
   "engines": {
     "node": ">=4.5"
