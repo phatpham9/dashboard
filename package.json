@@ -16,6 +16,7 @@
     "node": ">=4.5"
   },
   "scripts": {
+    "postinstall": "bower install --allow-root",
     "build:dev": "grunt build:dev",
     "build:prod": "grunt build:prod",
     "start": "grunt"
