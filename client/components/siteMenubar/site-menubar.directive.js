@@ -2,10 +2,10 @@
 
 angular
     .module(window.APP.modules.main)
-    .directive('siteMenubar', siteMenubar);
+    .directive('siteMenubar', siteMenubarDirective);
 
-siteMenubar.$inject = [];
-function siteMenubar() {
+siteMenubarDirective.$inject = [];
+function siteMenubarDirective() {
     return {
         restrict: 'E',
         replace: true,
