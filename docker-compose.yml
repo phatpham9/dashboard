@@ -1,14 +1,21 @@
 version: "2"
 services:
-  mongo:
-    image: mongo
   web:
-    build: .
+    container_name: dashboard
+    image: phatpham9/ddnode
+    network_mode: bridge
+    # link to external container
+    external_links:
+      - mongo:mongo
+    # export env variable
     environment:
-      - NODE_ENV=production
       - DB_HOST=mongo
-    command: node server/app.js
+    # expose ports to host
     ports:
-      - "127.0.0.1:9000:9000"
-    depends_on:
-      - mongo
+      - 127.0.0.1:9000:9000
+      - 127.0.0.1:35729:35729
+    # shared volumes with host
+    volumes:
+      - /path/to/dashboard:/app
+    # start script
+    command: npm start

@@ -12,3 +12,7 @@ script:
   - npm install --only=dev
   - grunt build:prod
   - node server/app.js
+
+
+notifications:
+  slack: phatpham9:AuqNWMV3FScfBQmK4ieHov0f

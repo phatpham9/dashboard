@@ -2,10 +2,10 @@
 
 angular
     .module(window.APP.modules.main)
-    .directive('siteMenubar', siteMenubar);
+    .directive('siteMenubar', siteMenubarDirective);
 
-siteMenubar.$inject = [];
-function siteMenubar() {
+siteMenubarDirective.$inject = [];
+function siteMenubarDirective() {
     return {
         restrict: 'E',
         replace: true,
@@ -26,11 +26,13 @@ function siteMenubarControllerFunc($rootScope, $state, siteMenubar, settingAPI, 
 
     $rootScope.$on('userLoggedin', init);
     $rootScope.$on('userLoggedout', onLogout);
-    init();
+    if (vm.isLoggedin()) {
+        init();
+    }
 
     // functions
     function init() {
-        if (user.isLoggedin()) {
+        if (vm.isLoggedin()) {
             getMenubar({
                 _id: 'MENUBAR'
             }, function(menubar) {
