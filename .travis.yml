@@ -1,18 +1,19 @@
 language: node_js
 
 node_js:
-  - 7
-  - 6
-  - 4
+- 7
+- 6
+- 4
 
 script:
-  - npm install -g bower grunt-cli
-  - bower install --allow-root
-  - npm install --production
-  - npm install --only=dev
-  - grunt build:prod
-  - node server/app.js
-
+- npm install -g bower grunt-cli
+- bower install --allow-root
+- npm install --production
+- npm install --only=dev
+- grunt build:prod
+- node server/app.js
 
 notifications:
-  slack: phatpham9:AuqNWMV3FScfBQmK4ieHov0f
+  email: false
+  slack:
+    secure: nHcDxAl9LT5YCSJHMMlDKj78NBW8wD4l7K2/pVioVoQX4bO4nO+s9E+FuWp0dgSUihinEQ/xEweIm1uYi5b2WTXJJ/DW7B8EJEUsixxcKN7lr2BbdexaGYQRBKQkF5ult+TkKwx4EbUIOohdfzaaT1c2n9hSIIE0yePBwbQDjnJ5NcktS/t3IJcQRastrb5ZHle+v1uH2PbVnR6oGtlmUwZjPqqIjFWTR+vzp0KufnIMoEpHt4S3rkS2C9WXXFZ5fm6YDvzD3tGYcKCq8HXP4wqbRU9rI3FUZpRfA06y9ueDHOxoBEKiuMxSwKhmGeObgDUaia4khC9Yuhql/Cuc0WRKuyZ8Ppi5MyWcMH3dLi687g8pflUYSyZUbxDJPQwPuJTtpL5zN/OBJgOgJoI6x+4F6jOHyaXmvPBQWxl6naZNrAYPjMSn3OMx7/XLpnab7sSYoS4IQ+vWpS3nTzYoKaqDMKp3NgTYbPJQmtF0l0kAeijZGT/o8k1E93OTNycXZrVDc+P+jaQFUksICzLFCxCRnIQ0llMPRKex4k2raDZDywQtm9cVrMLRZVwer66A5ZMb9KlgStKgH5quhnaz3bdupll+bo+njuHoH8Wue4K8e0Iwo08lkl6nmQhUtpNy23hMtolI1Le4JNaP4pHRdyVu1ON30My/NNWoS75ALc4=
